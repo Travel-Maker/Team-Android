@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TravelMakerApplication : Application(){
     lateinit var networkService: NetworkService
+    lateinit var usreid : String
 
     override fun onCreate() {
         super.onCreate()
@@ -28,4 +29,5 @@ class TravelMakerApplication : Application(){
     fun getApplicationNetworkService(): NetworkService {
         return networkService
     }
+
 }
