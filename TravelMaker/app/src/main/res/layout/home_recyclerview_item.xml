@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/home_rc_countryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:text="나라이름"
+        android:textSize="12sp"
+        android:textColor="#4D4D4D"/>
+
+    <com.teamandroid.travelmaker.InfiniteViewPager
+        android:id="@+id/home_rc_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:clipToPadding="false"
+        android:layout_below="@+id/home_rc_countryName" />
+
+</RelativeLayout>
