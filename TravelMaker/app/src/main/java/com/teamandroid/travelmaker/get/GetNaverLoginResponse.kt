@@ -1,6 +1,6 @@
 package com.teamandroid.travelmaker.get
 
-import com.teamandroid.travelmaker.UserProfile
+import com.teamandroid.travelmaker.etc.UserProfile
 
 data class GetNaverLoginResponse (
     var resultcode : String,

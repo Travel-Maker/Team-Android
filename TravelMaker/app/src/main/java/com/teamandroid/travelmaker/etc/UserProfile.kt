@@ -1,4 +1,4 @@
-package com.teamandroid.travelmaker
+package com.teamandroid.travelmaker.etc
 
 data class UserProfile (
         var email : String,

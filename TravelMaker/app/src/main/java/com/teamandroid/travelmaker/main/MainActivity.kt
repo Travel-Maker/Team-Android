@@ -1,7 +1,8 @@
-package com.teamandroid.travelmaker
+package com.teamandroid.travelmaker.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.teamandroid.travelmaker.R
 
 class MainActivity : AppCompatActivity() {
 
