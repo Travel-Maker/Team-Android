@@ -10,4 +10,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <style name = "RatingBar" parent="Base.Widget.AppCompat.RatingBar.Small">
+        <item name="android:colorControlNormal"> @color/colorAccent</item>
+        <item name="android:colorControlActivated"> @color/colorAccent</item>
+
+    </style>
 </resources>

@@ -1,15 +1,16 @@
-package com.teamandroid.travelmaker
+package com.teamandroid.travelmaker.etc
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import com.teamandroid.travelmaker.etc.InfinitePagerAdapter
 
 class InfiniteViewPager(mContext : Context, attrs : AttributeSet? = null) : ViewPager(mContext, attrs){
 
     override fun setAdapter(adapter: PagerAdapter?) {
         super.setAdapter(adapter)
-        setCurrentItem(0)
+        setCurrentItem(Integer.MAX_VALUE / 2)
     }
 
     override fun setCurrentItem(item: Int) {

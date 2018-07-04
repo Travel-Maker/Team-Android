@@ -1,4 +1,4 @@
-package com.teamandroid.travelmaker
+package com.teamandroid.travelmaker.etc
 
 import android.support.v4.view.PagerAdapter
 import android.view.View
@@ -25,13 +25,14 @@ class InfinitePagerAdapter(var adapter: PagerAdapter) : PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val virtualPosition = position % getRealCount()
+        var virtualPosition = position % getRealCount()
 
         return adapter.instantiateItem(container, virtualPosition)
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        val virtualPosition = position % getRealCount()
+        var virtualPosition = position % getRealCount()
+
         adapter.destroyItem(container, virtualPosition, `object`)
     }
 

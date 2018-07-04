@@ -1,9 +1,8 @@
-package com.teamandroid.travelmaker.main
+package com.teamandroid.travelmaker.main.home
 
 import android.support.v4.view.ViewPager
 import android.view.View
-import android.widget.RelativeLayout
-import kotlin.math.abs
+
 
 class CardPagerTransformerShift(var baseElevation : Float, var raisingElevation : Float, var smallerScale : Float, var startOffset : Float) : ViewPager.PageTransformer {
 
@@ -15,11 +14,13 @@ class CardPagerTransformerShift(var baseElevation : Float, var raisingElevation 
             page.scaleY = smallerScale
             page.scaleX = smallerScale
         }
+
         else{
             page.elevation = (1-absPosition) * raisingElevation + baseElevation
             page.scaleY = (smallerScale - 1) * absPosition + 1
             page.scaleX = (smallerScale - 1) * absPosition + 1
         }
+
     }
 
 }

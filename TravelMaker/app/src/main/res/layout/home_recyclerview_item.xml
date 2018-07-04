@@ -14,7 +14,7 @@
         android:textSize="12sp"
         android:textColor="#4D4D4D"/>
 
-    <com.teamandroid.travelmaker.InfiniteViewPager
+    <com.teamandroid.travelmaker.etc.InfiniteViewPager
         android:id="@+id/home_rc_viewPager"
         android:layout_width="match_parent"
         android:layout_height="150dp"

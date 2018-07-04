@@ -32,6 +32,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_alignParentBottom="true"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -43,11 +49,10 @@
         <FrameLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="match_parent"
+            android:layout_above="@+id/main_navigationBar">
 
         </FrameLayout>
-
 
         <LinearLayout
             android:id="@+id/main_navigationBar"
@@ -60,37 +65,38 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_launcher_foreground"/>
+                android:background="@drawable/btn_home_selector"/>
 
             <ImageView
                 android:id="@+id/navigationBar_favorite"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_launcher_foreground"/>
+                android:background="@drawable/btn_favorite_selector"/>
 
             <ImageView
                 android:id="@+id/navigationBar_receive"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_launcher_foreground"/>
+                android:background="@drawable/btn_receivce_selector"/>
 
             <ImageView
                 android:id="@+id/navigationBar_send"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_launcher_foreground"/>
+                android:background="@drawable/btn_send_selector" />
 
             <ImageView
                 android:id="@+id/navigationBar_mypage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_launcher_foreground"/>
+                android:background="@drawable/btn_mypage_selector"/>
 
         </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>
