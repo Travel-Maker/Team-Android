@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.CountryThumbnail
+import com.teamandroid.travelmaker.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
@@ -27,7 +28,7 @@ class HomeFragment : Fragment() {
 
         categories.add(Category("아시아", countryThumbnails))
 
-        view.home_recyclerView.adapter = HomeRecyclerViewAdapter(categories, this.activity!!.windowManager)
+        view.home_recyclerView.adapter = HomeRecyclerViewAdapter(categories, activity as MainActivity)
         view.home_recyclerView.layoutManager = LinearLayoutManager(container!!.context)
         return view
     }

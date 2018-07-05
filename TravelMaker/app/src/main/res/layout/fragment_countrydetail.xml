@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginBottom="12dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="이달의 전문가"
+            android:textColor="#00A8FF"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="386dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="16dp" >
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#707070"
+                    android:text="아이디(이름)" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#11D1B1"
+                    android:text="성향" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#707070"
+                    android:text="전문지역"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="10sp"
+                    android:textColor="#707070"
+                    android:text="평점" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <RatingBar
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="false"
+                        android:max="5"
+                        android:numStars="5"
+                        android:rating="0"
+                        android:stepSize="0.5" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(3.0)"
+                        android:textColor="#707070"
+                        android:textSize="8sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="16dp" >
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#707070"
+                    android:text="아이디(이름)" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#11D1B1"
+                    android:text="성향" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#707070"
+                    android:text="전문지역"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="10sp"
+                    android:textColor="#707070"
+                    android:text="평점" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <RatingBar
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="false"
+                        android:max="5"
+                        android:numStars="5"
+                        android:rating="0"
+                        android:stepSize="0.5" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(3.0)"
+                        android:textColor="#707070"
+                        android:textSize="8sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="16dp" >
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#707070"
+                    android:text="아이디(이름)" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#11D1B1"
+                    android:text="성향" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#707070"
+                    android:text="전문지역"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="10sp"
+                    android:textColor="#707070"
+                    android:text="평점" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <RatingBar
+                        style="@style/RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="false"
+                        android:max="5"
+                        android:numStars="5"
+                        android:rating="0"
+                        android:stepSize="0.5" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(3.0)"
+                        android:textColor="#707070"
+                        android:textSize="8sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btn_moreExpert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginEnd="16dp"
+            android:text="더보기"
+            android:textColor="#00A8FF"
+            android:textSize="10sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#F5F5F5"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="415dp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="465dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginBottom="20dp"
+                android:text="신청해요"
+                android:textColor="#00A8FF"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/apply_layout"/>
+
+            <TextView
+                android:id="@+id/btn_moreApplication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="16dp"
+                android:text="더보기"
+                android:textColor="#00A8FF"
+                android:textSize="10sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+    </LinearLayout>
+</ScrollView>

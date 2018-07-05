@@ -9,7 +9,7 @@ import com.teamandroid.travelmaker.R
 class PersonRecyclerViewAdapter(var expert: ArrayList<Expert>) : RecyclerView.Adapter<PersonRecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonRecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_favorite_person_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.expert_person_item, parent, false)
         return PersonRecyclerViewHolder(view)
     }
 

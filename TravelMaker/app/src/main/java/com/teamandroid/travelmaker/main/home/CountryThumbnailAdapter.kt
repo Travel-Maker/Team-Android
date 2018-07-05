@@ -1,14 +1,17 @@
 package com.teamandroid.travelmaker.main.home
 
+import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.main.CountryThumbnail
+import com.teamandroid.travelmaker.main.MainActivity
+import com.teamandroid.travelmaker.main.etc.CountryDetailFragment
 import kotlinx.android.synthetic.main.home_viewpager_item.view.*
 
-class CountryThumbnailAdapter(var countryThumbnails : ArrayList<CountryThumbnail>) : PagerAdapter() {
+class CountryThumbnailAdapter(var countryThumbnails : ArrayList<CountryThumbnail>, var activity: MainActivity) : PagerAdapter(), View.OnClickListener {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view == `object`
@@ -29,10 +32,19 @@ class CountryThumbnailAdapter(var countryThumbnails : ArrayList<CountryThumbnail
                 //TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, re.)
 
         //view.rc_vp_countryImage.setImageBitmap(countryThumbnails[position].bitmp)
+        view.setOnClickListener(this)
+        view.isClickable = false
+        view.tag = countryThumbnails[position].index
         view.rc_vp_countryName.text = countryThumbnails[position].name
-
         container.addView(view)
         return view
     }
 
+    override fun onClick(v: View?) {
+        val fragment = CountryDetailFragment()
+        val bundle = Bundle()
+        bundle.putInt("index",(v!!.tag) as Int)
+        fragment.arguments = bundle
+        activity.changeEtcFragment(fragment)
+    }
 }

@@ -10,6 +10,7 @@ class CountryRecyclerViewAdapter(var countryThumbnails : ArrayList<CountryThumbn
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryRecyclerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_favorite_country_item, parent, false)
+
         return CountryRecyclerViewHolder(view)
     }
 
@@ -17,6 +18,7 @@ class CountryRecyclerViewAdapter(var countryThumbnails : ArrayList<CountryThumbn
 
     override fun onBindViewHolder(holder: CountryRecyclerViewHolder, position: Int) {
         //holder.countryImage.setImageBitmap(countryThumbnails[position].)
+        holder.parent.tag = countryThumbnails[position].index
         holder.countryName.text = countryThumbnails[position].name
     }
 }

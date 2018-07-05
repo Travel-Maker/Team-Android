@@ -6,12 +6,17 @@ import android.view.ViewGroup
 import com.teamandroid.travelmaker.R
 import android.content.Context
 import android.graphics.Point
+import android.view.View
 import android.view.WindowManager
+import android.widget.AdapterView
 import com.teamandroid.travelmaker.etc.InfinitePagerAdapter
 import com.teamandroid.travelmaker.main.Category
+import com.teamandroid.travelmaker.main.MainActivity
+import com.teamandroid.travelmaker.main.etc.CountryDetailFragment
 
 
-class HomeRecyclerViewAdapter(var categories: ArrayList<Category>, var windowManager: WindowManager) : RecyclerView.Adapter<HomeRecyclerViewHolder>(){
+class HomeRecyclerViewAdapter(var categories: ArrayList<Category>, var activity: MainActivity) : RecyclerView.Adapter<HomeRecyclerViewHolder>(){
+
     lateinit var mContext : Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecyclerViewHolder {
@@ -24,12 +29,12 @@ class HomeRecyclerViewAdapter(var categories: ArrayList<Category>, var windowMan
 
     override fun onBindViewHolder(holder: HomeRecyclerViewHolder, position: Int) {
 
-        holder.viewPager.adapter = InfinitePagerAdapter(CountryThumbnailAdapter(categories[position].countryThumbnails))
+        holder.viewPager.adapter = InfinitePagerAdapter(CountryThumbnailAdapter(categories[position].countryThumbnails, activity))
         holder.viewPager.setPadding(350, 0, 350, 0)
         holder.viewPager.offscreenPageLimit = 9
 
         val screen = Point()
-        windowManager.defaultDisplay.getSize(screen)
+        activity.windowManager.defaultDisplay.getSize(screen)
 
         val startOffset = 350.0f / (screen.x - 2 * 350.0f)
         holder.viewPager.setPageTransformer(false, CardPagerTransformerShift(holder.viewPager.elevation * 1.3f, holder.viewPager.elevation,
