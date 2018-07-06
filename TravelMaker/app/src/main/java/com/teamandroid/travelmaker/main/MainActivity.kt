@@ -1,5 +1,6 @@
 package com.teamandroid.travelmaker.main
 
+import android.app.FragmentManager
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         currentSelected.isSelected = true
 
         registCurrentSelected(currentSelected)
-        supportFragmentManager.beginTransaction().replace(R.id.main_container,HomeFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container,HomeFragment(),"HomeFragment").commit()
 
     }
 
@@ -60,19 +61,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         val manager = supportFragmentManager
-        Log.d("num",manager.backStackEntryCount.toString())
+
         if (manager.backStackEntryCount > 0) {
-            if(beforeFragment is HomeFragment){
+            val name = manager.getBackStackEntryAt(manager.backStackEntryCount - 1).name
+            if(name.compareTo("HomeFragment") == 0){
                 registCurrentSelected(navigationBar_home)
             }
-            else if(beforeFragment is FavoriteFragment){
+            else if(name.compareTo("FavoriteFragment") == 0){
                 registCurrentSelected(navigationBar_favorite)
             }
             else{
                 setDisplayHomeAsUpEnabled(true)
             }
             manager.popBackStack()
-            beforeFragment = supportFragmentManager.findFragmentById(R.id.main_container)
         } else {
             super.onBackPressed()
         }
@@ -90,11 +91,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun changeFragment(fragment: Fragment){
-        beforeFragment = supportFragmentManager.findFragmentById(R.id.main_container)
+        val manager = supportFragmentManager
+        var name = manager.findFragmentById(R.id.main_container).tag
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.replace(R.id.main_container,fragment).commit()
+        transaction.addToBackStack(name)
+
+        if(fragment is HomeFragment){
+            name = "HomeFragment"
+        }
+        else if(fragment is FavoriteFragment){
+            name = "FavoriteFragment"
+        }
+        else{
+            name = "EtcFragment"
+        }
+        transaction.replace(R.id.main_container,fragment,name).commit()
     }
 
     fun registCurrentSelected(candiate : ImageView){
