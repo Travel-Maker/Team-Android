@@ -29,9 +29,8 @@ class CountryThumbnailAdapter(var countryThumbnails : ArrayList<CountryThumbnail
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = LayoutInflater.from(container.context).inflate(R.layout.home_viewpager_item, container,false)
-                //TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, re.)
 
-        //view.rc_vp_countryImage.setImageBitmap(countryThumbnails[position].bitmp)
+        view.rc_vp_countryImage.setImageBitmap(countryThumbnails[position].bitmap)
         view.setOnClickListener(this)
         view.isClickable = false
         view.tag = countryThumbnails[position].index

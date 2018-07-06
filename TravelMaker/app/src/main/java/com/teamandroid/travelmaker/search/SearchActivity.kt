@@ -7,16 +7,25 @@ import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.teamandroid.travelmaker.R
+import com.teamandroid.travelmaker.RecyclerItemClickListener
+import com.teamandroid.travelmaker.etc.DeleteDialogFragment
+import com.teamandroid.travelmaker.main.CountryThumbnail
+import com.teamandroid.travelmaker.main.receive.ReceiveRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.fragment_receive.view.*
 import kotlin.collections.ArrayList
 
 class SearchActivity : AppCompatActivity(){
 
 
     lateinit var actionBar : ActionBar
-    val countryWords = arrayOf("중국", "일본", "한국", "미국","캐나다","멕시코","영국","프랑스","스페인")
+    lateinit var searchData : ArrayList<SearchData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,42 +33,70 @@ class SearchActivity : AppCompatActivity(){
 
         setSupportActionBar(search_toolbar)
 
+        searchData = intent.getParcelableArrayListExtra("searchData")
 
         actionBar = supportActionBar!!
         actionBar.title = null
 
-        actionBar.setDisplayHomeAsUpEnabled(true)
+        search_btn_back.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                onBackPressed()
+            }
+        })
 
         search_list.adapter = SearchRecyclerViewAdapter()
         search_list.layoutManager = LinearLayoutManager(this)
 
-        search_editText.addTextChangedListener(object : TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                val filteredList = ArrayList<String>()
+        search_list.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, search_list,
+                object : RecyclerItemClickListener.OnItemClickListener{
+                    override fun onItemClick(view: View, position: Int) {
+                        changeCountryDetailFragment(view.tag as Int)
+                        finish()
+                    }
 
-                for(item in countryWords){
-                    if(item.toLowerCase().contains(s.toString().toLowerCase())){
-                        filteredList.add(item)
+                    override fun onLongItemClick(view: View, position: Int) {
+                        }}))
+
+        search_editText.setOnEditorActionListener(object : TextView.OnEditorActionListener{
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    val countryName = search_editText.text.toString()
+                    for(i in 0..searchData.size){
+                        if(countryName.compareTo(searchData[i].name) == 0) {
+                            changeCountryDetailFragment(searchData[i].index)
+                            return true
+                        }
                     }
                 }
-
-                (search_list.adapter as SearchRecyclerViewAdapter).addItem(filteredList)
+                return false
             }
 
+        })
+        search_editText.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                val filteredList = ArrayList<SearchData>()
+                if(s != null && s.isNotEmpty()){
+                    for(item in searchData){
+                        if(item.name.toLowerCase().contains(s.toString().toLowerCase())){
+                            filteredList.add(item)
+                        }
+                    }
+                }
+                (search_list.adapter as SearchRecyclerViewAdapter).addItem(filteredList)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
         })
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if(item!!.itemId == android.R.id.home){
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    fun changeCountryDetailFragment(index : Int){
+        val intent = Intent()
+        intent.putExtra("index",index)
+        setResult(100,intent)
+        finish()
     }
 
 }
