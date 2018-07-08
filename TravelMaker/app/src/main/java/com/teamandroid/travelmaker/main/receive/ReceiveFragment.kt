@@ -11,21 +11,28 @@ import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
 import com.teamandroid.travelmaker.etc.DeleteDialogFragment
 import com.teamandroid.travelmaker.main.MainActivity
+import com.teamandroid.travelmaker.main.send.SendData
+import com.teamandroid.travelmaker.main.send.SendFragment
 
 import kotlinx.android.synthetic.main.fragment_receive.view.*
 
-class ReceiveFragment: Fragment(),MainPage {
+class ReceiveFragment: Fragment(){
     lateinit var mView : View
     lateinit var items : ArrayList<ReceiveData>
+
+    companion object {
+        fun newInstance(items : ArrayList<ReceiveData>): ReceiveFragment {
+            val fragment = ReceiveFragment()
+            fragment.items = items
+            return fragment
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         mView = inflater.inflate(R.layout.fragment_receive,container,false)
         (activity as MainActivity).initActivityDesign()
-        items = ArrayList<ReceiveData>()
 
-        items.add(ReceiveData("A","장소 / 날짜 / 성향"))
-        items.add(ReceiveData("B","장소 / 날짜 / 성향"))
-        items.add(ReceiveData("C","장소 / 날짜 / 성향"))
 
         mView.receive_recycler.adapter = ReceiveRecyclerViewAdapter(items)
         mView.receive_recycler.layoutManager = LinearLayoutManager(container!!.context)
@@ -37,7 +44,7 @@ class ReceiveFragment: Fragment(),MainPage {
                         val deleteDialog = DeleteDialogFragment()
                         deleteDialog.setOkButton(object : View.OnClickListener{
                             override fun onClick(v: View?) {
-                                items.removeAt(position)
+                                items = (activity as MainActivity).deleteReceiveData(position)
                                 (mView.receive_recycler.adapter as ReceiveRecyclerViewAdapter).addItem(items)
                             }
                         })

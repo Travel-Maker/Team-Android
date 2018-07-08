@@ -15,7 +15,6 @@ class ReceiveRecyclerViewAdapter(var items : ArrayList<ReceiveData>) : RecyclerV
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ReceiveRecyclerViewHolder, position: Int) {
-        holder.no.text = (position+1).toString()
         holder.from.text = items[position].from
         holder.contents.text = items[position].contents
     }

@@ -13,7 +13,7 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/receive_from"
+            android:id="@+id/send_to"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:background="#BABABA"/>
         <TextView
-            android:id="@+id/receive_contents"
+            android:id="@+id/send_contents"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
@@ -38,7 +38,22 @@
             android:text="[장소] 제목"
             android:textSize="12sp"
             android:textColor="#C8C8C8"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#BABABA"/>
 
+        <TextView
+            android:id="@+id/send_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="확인여부"
+            android:textSize="12sp"
+            android:textColor="#00A8FF"/>
     </LinearLayout>
 
     <View

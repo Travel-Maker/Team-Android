@@ -23,6 +23,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.view.WindowManager
 import com.teamandroid.travelmaker.R.id.*
 import com.teamandroid.travelmaker.detail.DetailActivity
+import com.teamandroid.travelmaker.main.receive.ReceiveData
+import com.teamandroid.travelmaker.main.send.SendData
+import com.teamandroid.travelmaker.main.send.SendFragment
+import java.text.FieldPosition
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -31,7 +35,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var categories : ArrayList<Category>
     lateinit var countryData : ArrayList<CountryData>
-
+    lateinit var sendData : ArrayList<SendData>
+    lateinit var receiveData : ArrayList<ReceiveData>
+    lateinit var stackSelected : ArrayList<ImageView>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,13 +54,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         initActivityDesign()
 
+        stackSelected = ArrayList()
         currentSelected = navigationBar_home
         currentSelected.isSelected = true
 
         makeCountryData()
-
+        makeSendData()
+        makeReceiveData()
         val fragment = HomeFragment.newInstance(categories)
-        supportFragmentManager.beginTransaction().replace(R.id.main_container,fragment,"navigationBar_home").commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container,fragment).commit()
 
     }
 
@@ -62,7 +70,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         val manager = supportFragmentManager
         if (manager.backStackEntryCount > 0) {
-            setNavigationSelected(manager.findFragmentById(R.id.main_container).tag as String)
+            setNavigationSelected(stackSelected[stackSelected.size - 1])
+            stackSelected.removeAt(stackSelected.size - 1)
             manager.popBackStack()
         } else {
             super.onBackPressed()
@@ -72,34 +81,40 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun changeFragment(fragment: Fragment){
         val manager = supportFragmentManager
-        var myNavigation = ""
+        var myNavigation = navigationBar_home
         val currentFragment = manager.findFragmentById(R.id.main_container)
 
         if(fragment is HomeFragment)
-            myNavigation = "navigationBar_home"
+            myNavigation = navigationBar_home
 
         else if(fragment is FavoriteFragment){
-            myNavigation = "navigationBar_favorite"
+            myNavigation = navigationBar_favorite
         }
 
         else if(fragment is ReceiveFragment){
-            myNavigation = "navigationBar_receive"
+            myNavigation = navigationBar_receive
         }
 
-        manager.beginTransaction().addToBackStack(null).replace(R.id.main_container, fragment,currentFragment.tag as String).commit()
+        else if(fragment is SendFragment){
+            myNavigation = navigationBar_send
+        }
 
+        val transaction = manager.beginTransaction()
+        transaction.addToBackStack(null)
+        transaction.replace(R.id.main_container, fragment).commit()
+        stackSelected.add(currentSelected)
         setNavigationSelected(myNavigation)
     }
 
 
-    fun setNavigationSelected(tag : String){
+    fun setNavigationSelected(imageview : ImageView){
         currentSelected.isSelected = false
-        when(tag){
-            "navigationBar_home" -> currentSelected = navigationBar_home
-            "navigationBar_favorite" -> currentSelected = navigationBar_favorite
-            "navigationBar_receive" -> currentSelected = navigationBar_receive
-            "navigationBar_send" -> currentSelected = navigationBar_send
-            "navigationBar_mypage" -> currentSelected = navigationBar_mypage
+        when(imageview){
+            navigationBar_home -> currentSelected = navigationBar_home
+            navigationBar_favorite -> currentSelected = navigationBar_favorite
+            navigationBar_receive -> currentSelected = navigationBar_receive
+            navigationBar_send -> currentSelected = navigationBar_send
+            navigationBar_mypage -> currentSelected = navigationBar_mypage
         }
         currentSelected.isSelected = true
     }
@@ -121,7 +136,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         else if(v == navigationBar_receive){
             if(currentSelected !=v){
-                changeFragment(ReceiveFragment())
+                val fragment = ReceiveFragment.newInstance(receiveData)
+                changeFragment(fragment)
+            }
+        }
+        else if(v == navigationBar_send){
+            if(currentSelected != v) {
+                val fragment = SendFragment.newInstance(sendData)
+                changeFragment(fragment)
             }
         }
         else if(v == btn_searchActivity){
@@ -148,6 +170,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    fun makeSendData(){
+        sendData = ArrayList()
+        //통신할부분
+        sendData.add(SendData("A","[베이징] 중국 신청해요!"))
+        sendData.add(SendData("B","[파리] 두 명이서 가요!"))
+        sendData.add(SendData("C","[상하이] 쇼핑하러 갑니다!"))
+    }
+
+    fun deleteSendData(position : Int) : ArrayList<SendData>{
+        sendData.removeAt(position)
+        return sendData
+    }
+
+    fun makeReceiveData(){
+        receiveData = ArrayList()
+        //통신할부분
+        receiveData.add(ReceiveData("A","[베이징] 중국 신청해요!"))
+        receiveData.add(ReceiveData("B","[파리] 두 명이서 가요!"))
+        receiveData.add(ReceiveData("C","[상하이] 쇼핑하러 갑니다!"))
+    }
+
+    fun deleteReceiveData(position : Int) : ArrayList<ReceiveData>{
+        receiveData.removeAt(position)
+        return receiveData
+    }
     private fun makeCountryData(){
 
         countryData = ArrayList()
@@ -196,7 +243,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         countries.add(Country(countryData[8],BitmapFactory.decodeResource(resources,R.drawable.mexico_img_big)
                 ,BitmapFactory.decodeResource(resources, R.drawable.mexico_detail_img)))
 
-        categories.add(Category("북아메리카",countries))
+        categories.add(Category("북미/남미",countries))
 
     }
 

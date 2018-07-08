@@ -7,7 +7,6 @@ import kotlinx.android.synthetic.main.fragment_receive_item.view.*
 import com.teamandroid.travelmaker.R
 
 class ReceiveRecyclerViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-    var no : TextView = itemView.findViewById(R.id.receive_no)
     var from : TextView = itemView.findViewById(R.id.receive_from)
     var contents : TextView = itemView.findViewById(R.id.receive_contents)
 }
