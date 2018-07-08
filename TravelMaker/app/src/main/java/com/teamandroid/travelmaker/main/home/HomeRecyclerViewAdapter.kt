@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import com.teamandroid.travelmaker.etc.InfinitePagerAdapter
 import com.teamandroid.travelmaker.main.Category
-import com.teamandroid.travelmaker.main.CountryThumbnail
 import com.teamandroid.travelmaker.main.MainActivity
 
 

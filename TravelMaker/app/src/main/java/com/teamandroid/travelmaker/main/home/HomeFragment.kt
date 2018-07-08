@@ -7,12 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.teamandroid.travelmaker.MainPage
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MainPage {
     lateinit var categories : ArrayList<Category>
 
     companion object {
@@ -28,6 +29,8 @@ class HomeFragment : Fragment() {
         Log.d("num",categories.size.toString())
         view.home_recyclerView.adapter = HomeRecyclerViewAdapter(categories, activity as MainActivity)
         view.home_recyclerView.layoutManager = LinearLayoutManager(container!!.context)
+
+        (activity as MainActivity).initActivityDesign()
         return view
     }
 }

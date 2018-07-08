@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.teamandroid.travelmaker.R
-import com.teamandroid.travelmaker.main.CountryThumbnail
+import com.teamandroid.travelmaker.main.Country
 
-class CountryRecyclerViewAdapter(var countryThumbnails : ArrayList<CountryThumbnail>) : RecyclerView.Adapter<CountryRecyclerViewHolder>() {
+class CountryRecyclerViewAdapter(var countries : ArrayList<Country>) : RecyclerView.Adapter<CountryRecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryRecyclerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_favorite_country_item, parent, false)
@@ -14,11 +14,11 @@ class CountryRecyclerViewAdapter(var countryThumbnails : ArrayList<CountryThumbn
         return CountryRecyclerViewHolder(view)
     }
 
-    override fun getItemCount(): Int = countryThumbnails.size
+    override fun getItemCount(): Int = countries.size
 
     override fun onBindViewHolder(holder: CountryRecyclerViewHolder, position: Int) {
-        //holder.countryImage.setImageBitmap(countryThumbnails[position].)
-        holder.parent.tag = countryThumbnails[position].index
-        holder.countryName.text = countryThumbnails[position].name
+        holder.countryImage.setImageBitmap(countries[position].thumbnailbitmap)
+        holder.parent.tag = countries[position].countryData.index
+        holder.countryName.text = countries[position].countryData.name
     }
 }

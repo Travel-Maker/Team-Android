@@ -2,5 +2,5 @@ package com.teamandroid.travelmaker.main
 
 data class Category (
         val name : String,
-        val country : ArrayList<CountryThumbnail>
+        val country : ArrayList<Country>
 )

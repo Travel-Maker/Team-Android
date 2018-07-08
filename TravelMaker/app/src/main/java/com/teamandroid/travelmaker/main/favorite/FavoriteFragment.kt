@@ -3,39 +3,45 @@ package com.teamandroid.travelmaker.main.favorite
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
 import com.teamandroid.travelmaker.Expert
+import com.teamandroid.travelmaker.MainPage
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
-import com.teamandroid.travelmaker.main.CountryThumbnail
+import com.teamandroid.travelmaker.main.Category
+import com.teamandroid.travelmaker.main.Country
 import com.teamandroid.travelmaker.main.MainActivity
-import com.teamandroid.travelmaker.main.etc.CountryDetailFragment
-import com.teamandroid.travelmaker.main.home.HomeRecyclerViewAdapter
-import kotlinx.android.synthetic.main.fragment_favorite.*
+import com.teamandroid.travelmaker.detail.CountryDetailFragment
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class FavoriteFragment : Fragment(){
+class FavoriteFragment : Fragment(), MainPage {
 
-    lateinit var countryThumbnails: ArrayList<CountryThumbnail>
+    lateinit var country : ArrayList<Country>
     lateinit var experts : ArrayList<Expert>
+
+    companion object {
+        fun newInstance(categories : ArrayList<Category>): FavoriteFragment {
+            val fragment = FavoriteFragment()
+            val temp  = ArrayList<Country>()
+
+            for(i in 0..(categories.size - 1 )){
+                for(j in 0..(categories[i].country.size -1 )){
+                    if(categories[i].country[j].countryData.favorite)
+                        temp.add(categories[i].country[j])
+                }
+            }
+            fragment.country = temp
+            return fragment
+        }
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_favorite,container,false)
-        /*
-        countryThumbnails = ArrayList()
 
-        countryThumbnails.add(CountryThumbnail(10, "프랑스"))
-        countryThumbnails.add(CountryThumbnail(11, "미국"))
-        countryThumbnails.add(CountryThumbnail(12, "영국"))
-        countryThumbnails.add(CountryThumbnail(0, "한국"))
-        countryThumbnails.add(CountryThumbnail(1, "일본"))
+        (activity as MainActivity).initActivityDesign()
 
         experts = ArrayList()
         experts.add(Expert("ABCDEFG"))
@@ -43,16 +49,13 @@ class FavoriteFragment : Fragment(){
         experts.add(Expert("ABCDEFG"))
 
 
-        view.recycler_country.adapter = CountryRecyclerViewAdapter(countryThumbnails)
+        view.recycler_country.adapter = CountryRecyclerViewAdapter(country)
         view.recycler_country.layoutManager = LinearLayoutManager(container!!.context,LinearLayoutManager.HORIZONTAL,false)
         view.recycler_country.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, view.recycler_country,
                 object : RecyclerItemClickListener.OnItemClickListener{
                     override fun onItemClick(view: View, position: Int) {
-                        val fragment = CountryDetailFragment()
-                        val bundle = Bundle()
-                        bundle.putInt("index",(view.tag) as Int)
-                        fragment.arguments = bundle
-                        (activity as MainActivity).changeEtcFragment(fragment)
+                        val fragment = CountryDetailFragment.newInstance(country[position])
+                        (activity as MainActivity).changeFragment(fragment)
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {}
@@ -68,7 +71,7 @@ class FavoriteFragment : Fragment(){
                     override fun onLongItemClick(view: View, position: Int) {
 
                     }
-                }))*/
+                }))
         return view
     }
 }

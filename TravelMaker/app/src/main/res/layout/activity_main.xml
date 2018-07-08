@@ -10,60 +10,50 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_toolBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_background_normal"
         app:contentInsetStart="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/travel_maker_home"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="나라이름"
-                android:visibility="invisible"
-                android:layout_centerInParent="true" />
+
 
             <ImageView
                 android:id="@+id/btn_searchActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="20dp"
-                android:padding="10dp"
-                android:background="@drawable/search_btn"/>
+                android:layout_alignParentEnd="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="22dp"
+                android:src="@drawable/search_btn"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_alignParentBottom="true"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/main_toolBar">
 
         <FrameLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/main_navigationBar">
+            android:layout_below="@+id/main_toolBar"
+            android:layout_above="@+id/main_navigationBar"/>
 
-        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/main_navigationBar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
             <ImageView
@@ -102,7 +92,5 @@
                 android:background="@drawable/btn_mypage_selector"/>
 
         </LinearLayout>
-
-    </RelativeLayout>
 
 </RelativeLayout>

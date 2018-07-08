@@ -8,24 +8,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
-import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import com.teamandroid.travelmaker.main.CountryData
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
-import com.teamandroid.travelmaker.etc.DeleteDialogFragment
-import com.teamandroid.travelmaker.main.CountryThumbnail
-import com.teamandroid.travelmaker.main.receive.ReceiveRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.fragment_receive.view.*
 import kotlin.collections.ArrayList
 
 class SearchActivity : AppCompatActivity(){
 
 
     lateinit var actionBar : ActionBar
-    lateinit var searchData : ArrayList<SearchData>
+    lateinit var searchData : ArrayList<CountryData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +29,7 @@ class SearchActivity : AppCompatActivity(){
 
         setSupportActionBar(search_toolbar)
 
-        searchData = intent.getParcelableArrayListExtra("searchData")
+        searchData = intent.getParcelableArrayListExtra("countryData")
 
         actionBar = supportActionBar!!
         actionBar.title = null
@@ -50,7 +46,7 @@ class SearchActivity : AppCompatActivity(){
         search_list.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, search_list,
                 object : RecyclerItemClickListener.OnItemClickListener{
                     override fun onItemClick(view: View, position: Int) {
-                        changeCountryDetailFragment(view.tag as Int)
+                        GotoCountryDetailActivity(view.tag as Int)
                         finish()
                     }
 
@@ -63,7 +59,7 @@ class SearchActivity : AppCompatActivity(){
                     val countryName = search_editText.text.toString()
                     for(i in 0..searchData.size){
                         if(countryName.compareTo(searchData[i].name) == 0) {
-                            changeCountryDetailFragment(searchData[i].index)
+                            GotoCountryDetailActivity(searchData[i].index)
                             return true
                         }
                     }
@@ -74,7 +70,7 @@ class SearchActivity : AppCompatActivity(){
         })
         search_editText.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                val filteredList = ArrayList<SearchData>()
+                val filteredList = ArrayList<CountryData>()
                 if(s != null && s.isNotEmpty()){
                     for(item in searchData){
                         if(item.name.toLowerCase().contains(s.toString().toLowerCase())){
@@ -92,7 +88,7 @@ class SearchActivity : AppCompatActivity(){
     }
 
 
-    fun changeCountryDetailFragment(index : Int){
+    fun GotoCountryDetailActivity(index : Int){
         val intent = Intent()
         intent.putExtra("index",index)
         setResult(100,intent)

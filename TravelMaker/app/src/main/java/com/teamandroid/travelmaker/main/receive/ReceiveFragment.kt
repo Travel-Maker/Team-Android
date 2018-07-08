@@ -6,19 +6,21 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.teamandroid.travelmaker.MainPage
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
 import com.teamandroid.travelmaker.etc.DeleteDialogFragment
+import com.teamandroid.travelmaker.main.MainActivity
 
 import kotlinx.android.synthetic.main.fragment_receive.view.*
 
-class ReceiveFragment: Fragment() {
+class ReceiveFragment: Fragment(),MainPage {
     lateinit var mView : View
     lateinit var items : ArrayList<ReceiveData>
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         mView = inflater.inflate(R.layout.fragment_receive,container,false)
-
+        (activity as MainActivity).initActivityDesign()
         items = ArrayList<ReceiveData>()
 
         items.add(ReceiveData("A","장소 / 날짜 / 성향"))
