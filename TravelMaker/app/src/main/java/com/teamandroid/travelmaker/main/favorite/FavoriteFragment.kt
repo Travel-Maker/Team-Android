@@ -1,5 +1,6 @@
 package com.teamandroid.travelmaker.main.favorite
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.Country
 import com.teamandroid.travelmaker.main.MainActivity
 import com.teamandroid.travelmaker.detail.CountryDetailFragment
+import com.teamandroid.travelmaker.detail.DetailActivity
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
 
 class FavoriteFragment : Fragment(), MainPage {
@@ -54,8 +56,9 @@ class FavoriteFragment : Fragment(), MainPage {
         view.recycler_country.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, view.recycler_country,
                 object : RecyclerItemClickListener.OnItemClickListener{
                     override fun onItemClick(view: View, position: Int) {
-                        val fragment = CountryDetailFragment.newInstance(country[position])
-                        (activity as MainActivity).changeFragment(fragment)
+                        val intent = Intent(activity!!.applicationContext, DetailActivity::class.java)
+                        intent.putExtra("country",country[position].countryData)
+                        startActivity(intent)
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {}
