@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
+    android:background="#70B6C4"
     tools:context=".login.LoginActivity">
 
     <ImageView
@@ -17,9 +18,10 @@
     <ImageView
         android:id="@+id/apptitle"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="94dp"
+        android:src="@drawable/travel_maker_login"
         android:layout_below="@id/applogo"/>
 
     <com.nhn.android.naverlogin.ui.view.OAuthLoginButton

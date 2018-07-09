@@ -7,13 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.teamandroid.travelmaker.MainPage
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeFragment : Fragment(), MainPage {
+class HomeFragment : Fragment() {
     lateinit var categories : ArrayList<Category>
 
     companion object {

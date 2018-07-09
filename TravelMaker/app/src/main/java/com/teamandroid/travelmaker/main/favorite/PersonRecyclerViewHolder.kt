@@ -6,5 +6,5 @@ import android.widget.TextView
 import com.teamandroid.travelmaker.R
 
 class PersonRecyclerViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-    var expertName : TextView = itemView.findViewById(R.id.item_expoertName)
+    var expertName : TextView = itemView.findViewById(R.id.expert_name)
 }

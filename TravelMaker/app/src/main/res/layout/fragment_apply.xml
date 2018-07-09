@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginEnd="10dp"
-                android:src="@android:drawable/ic_menu_search"/>
+                android:src="@drawable/search_btn"/>
 
             <View
                 android:layout_width="2dp"
@@ -67,7 +67,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:gravity="center"
-            android:background="@drawable/gray_box"
+            android:background="@drawable/green_box"
             android:text="필터"
             android:textSize="15sp"
             android:textColor="#FFFFFF"/>
@@ -80,12 +80,16 @@
         <include layout="@layout/apply_layout" />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/gotoApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="66dp"
+            android:layout_marginBottom="58dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:src="@drawable/apply_btn"
+            android:scaleType="center"
+            app:backgroundTint="#049DED"
             app:fabSize="normal"/>
 
     </RelativeLayout>

@@ -21,7 +21,10 @@
         </activity>
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".search.SearchActivity" />
-        <activity android:name=".detail.DetailActivity"></activity>
+        <activity android:name=".detail.DetailActivity" />
+        <activity android:name=".accept.ApplyAccept" />
+        <activity android:name=".review.ApplyReview" />
+        <activity android:name=".write.ApplyWrite"></activity>
     </application>
 
 </manifest>

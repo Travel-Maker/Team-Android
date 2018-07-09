@@ -8,17 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.teamandroid.travelmaker.Expert
-import com.teamandroid.travelmaker.MainPage
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
 import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.Country
 import com.teamandroid.travelmaker.main.MainActivity
-import com.teamandroid.travelmaker.detail.CountryDetailFragment
 import com.teamandroid.travelmaker.detail.DetailActivity
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
 
-class FavoriteFragment : Fragment(), MainPage {
+class FavoriteFragment : Fragment() {
 
     lateinit var country : ArrayList<Country>
     lateinit var experts : ArrayList<Expert>
@@ -46,9 +44,10 @@ class FavoriteFragment : Fragment(), MainPage {
         (activity as MainActivity).initActivityDesign()
 
         experts = ArrayList()
+        /*
         experts.add(Expert("ABCDEFG"))
         experts.add(Expert("ABCDEFG"))
-        experts.add(Expert("ABCDEFG"))
+        experts.add(Expert("ABCDEFG"))*/
 
 
         view.recycler_country.adapter = CountryRecyclerViewAdapter(country)

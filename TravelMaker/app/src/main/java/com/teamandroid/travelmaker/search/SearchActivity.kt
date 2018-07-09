@@ -57,7 +57,7 @@ class SearchActivity : AppCompatActivity(){
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH){
                     val countryName = search_editText.text.toString()
-                    for(i in 0..searchData.size){
+                    for(i in 0..searchData.size - 1){
                         if(countryName.compareTo(searchData[i].name) == 0) {
                             GotoCountryDetailActivity(searchData[i].index)
                             return true
