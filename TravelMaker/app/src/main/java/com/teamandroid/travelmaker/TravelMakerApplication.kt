@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TravelMakerApplication : Application(){
     lateinit var networkService: NetworkService
-    lateinit var usreid : String
-
+    lateinit var userInfo: UserInfo
+    lateinit var userToken : String
     override fun onCreate() {
         super.onCreate()
     }
@@ -30,4 +30,11 @@ class TravelMakerApplication : Application(){
         return networkService
     }
 
+    fun setToken(userToken : String){
+        this.userToken = userToken
+    }
+
+    fun settingUserInfo(userInfo : UserInfo){
+        this.userInfo = userInfo
+    }
 }
