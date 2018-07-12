@@ -1,46 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#14DAC6"
-    tools:context=".detail.DetailActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/apply_toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:contentInsetStart="0dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/btn_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:paddingTop="15dp"
-                android:paddingStart="22dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="15dp"
-                android:src="@drawable/x_icon_blue"/>
-
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/apply_toolBar"
-        android:background="@drawable/apply_border"
         android:orientation="vertical">
         
         <TextView
+            android:id="@+id/apply_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -147,147 +115,16 @@
                 android:textColor="#00CAD8"/>
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#F5F5F5">
 
-            <RelativeLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/apply_item_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp">
-
-                <View
-                    android:id="@+id/appy_bar1"
-                    android:layout_width="3dp"
-                    android:layout_height="18dp"
-                    android:background="#049DED"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="IN"
-                    android:textSize="14sp"
-                    android:textColor="#049DED"/>
-
-                <TextView
-                    android:id="@+id/apply_in_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="94dp"
-                    android:text="나라, 도시, 장소"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/apply_in_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="94dp"
-                    android:layout_below="@id/apply_in_title"
-                    android:layout_marginTop="11dp"
-                    android:text="day"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/apply_in_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/apply_in_day"
-                    android:layout_marginStart="30dp"
-                    android:layout_toEndOf="@id/apply_in_day"
-                    android:text="time"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="38dp">
-
-                <View
-                    android:id="@+id/appy_bar2"
-                    android:layout_width="3dp"
-                    android:layout_height="18dp"
-                    android:background="#049DED"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="숙소"
-                    android:textSize="14sp"
-                    android:textColor="#049DED"/>
-
-                <TextView
-                    android:id="@+id/apply_hotel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="94dp"
-                    android:text="상세주소"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="38dp">
-
-                <View
-                    android:id="@+id/appy_bar3"
-                    android:layout_width="3dp"
-                    android:layout_height="18dp"
-                    android:background="#049DED"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="OUT"
-                    android:textSize="14sp"
-                    android:textColor="#049DED"/>
-
-                <TextView
-                    android:id="@+id/apply_out_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="94dp"
-                    android:text="나라, 도시, 장소"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/apply_out_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="94dp"
-                    android:layout_below="@id/apply_out_title"
-                    android:layout_marginTop="11dp"
-                    android:text="day"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/apply_out_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/apply_out_day"
-                    android:layout_marginStart="30dp"
-                    android:layout_toEndOf="@id/apply_out_day"
-                    android:text="time"
-                    android:textColor="#707070"
-                    android:textSize="13sp"/>
-            </RelativeLayout>
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -313,7 +150,6 @@
                 android:id="@+id/apply_etc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="특이사항"
                 android:layout_marginTop="25dp"
                 android:layout_marginStart="43dp"
                 android:layout_marginBottom="43dp"
@@ -321,4 +157,3 @@
         </LinearLayout>
 
     </LinearLayout>
-</RelativeLayout>

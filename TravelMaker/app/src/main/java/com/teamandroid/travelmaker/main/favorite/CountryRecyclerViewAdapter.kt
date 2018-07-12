@@ -18,7 +18,7 @@ class CountryRecyclerViewAdapter(var countries : ArrayList<Country>) : RecyclerV
 
     override fun onBindViewHolder(holder: CountryRecyclerViewHolder, position: Int) {
         holder.countryImage.setImageBitmap(countries[position].thumbnailbitmap)
-        holder.parent.tag = countries[position].countryData.index
-        holder.countryName.text = countries[position].countryData.name
+        holder.parent.tag = countries[position].countryData.country_idx
+        holder.countryName.text = countries[position].countryData.country_name
     }
 }

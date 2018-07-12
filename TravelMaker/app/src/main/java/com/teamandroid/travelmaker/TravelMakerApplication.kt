@@ -20,7 +20,6 @@ class TravelMakerApplication : Application(){
     fun makeNetworkService(baseUrl : String) : Unit{
         var retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         networkService = retrofit.create(NetworkService::class.java)

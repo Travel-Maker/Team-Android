@@ -17,8 +17,7 @@ import com.teamandroid.travelmaker.main.receive.ReceiveFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.WindowManager
 import com.teamandroid.travelmaker.detail.DetailActivity
-import com.teamandroid.travelmaker.main.receive.ReceiveData
-import com.teamandroid.travelmaker.main.send.SendData
+import com.teamandroid.travelmaker.main.receive.ReceiveBoard
 import com.teamandroid.travelmaker.main.send.SendFragment
 
 
@@ -28,8 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var categories : ArrayList<Category>
     lateinit var countryData : ArrayList<CountryData>
-    lateinit var sendData : ArrayList<SendData>
-    lateinit var receiveData : ArrayList<ReceiveData>
+    lateinit var receiveData : ArrayList<ReceiveBoard>
     lateinit var stackSelected : ArrayList<ImageView>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +50,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         currentSelected.isSelected = true
 
         makeCountryData()
-        makeSendData()
-        makeReceiveData()
         val fragment = HomeFragment.newInstance(categories)
         supportFragmentManager.beginTransaction().replace(R.id.main_container,fragment).commit()
 
@@ -129,13 +125,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         else if(v == navigationBar_receive){
             if(currentSelected !=v){
-                val fragment = ReceiveFragment.newInstance(receiveData)
+                val fragment = ReceiveFragment()
                 changeFragment(fragment)
             }
         }
         else if(v == navigationBar_send){
             if(currentSelected != v) {
-                val fragment = SendFragment.newInstance(sendData)
+                val fragment = SendFragment()
                 changeFragment(fragment)
             }
         }
@@ -153,9 +149,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             for(i in 0..(categories.size - 1)){
                 for(j in 0..(categories[i].country.size - 1)){
-                    if(categories[i].country[j].countryData.index == index){
+                    if(categories[i].country[j].countryData.country_idx == index){
                         val intent = Intent(applicationContext, DetailActivity::class.java)
-                        intent.putExtra("country",categories[i].country[j].countryData)
+                        intent.putExtra("countryData",categories[i].country[j].countryData)
                         startActivity(intent)
                     }
                 }
@@ -163,46 +159,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun makeSendData(){
-        sendData = ArrayList()
-        //통신할부분
-        sendData.add(SendData("A","[베이징] 중국 신청해요!"))
-        sendData.add(SendData("B","[파리] 두 명이서 가요!"))
-        sendData.add(SendData("C","[상하이] 쇼핑하러 갑니다!"))
-    }
 
-    fun deleteSendData(position : Int) : ArrayList<SendData>{
-        sendData.removeAt(position)
-        return sendData
-    }
-
-    fun makeReceiveData(){
-        receiveData = ArrayList()
-        //통신할부분
-        receiveData.add(ReceiveData("A","[베이징] 중국 신청해요!"))
-        receiveData.add(ReceiveData("B","[파리] 두 명이서 가요!"))
-        receiveData.add(ReceiveData("C","[상하이] 쇼핑하러 갑니다!"))
-    }
-
-    fun deleteReceiveData(position : Int) : ArrayList<ReceiveData>{
-        receiveData.removeAt(position)
-        return receiveData
-    }
     private fun makeCountryData(){
 
         countryData = ArrayList()
 
-        countryData.add(CountryData(0, "대한민국", true))
-        countryData.add(CountryData(1, "중국", true))
-        countryData.add(CountryData(2, "일본", true))
+        countryData.add(CountryData(10, "대한민국", null,null,null,null,null,null,null))
+        countryData.add(CountryData(8, "중국", null,null,null,null,null,null,null))
+        countryData.add(CountryData(12, "일본", null,null,null,null,null,null,null))
 
-        countryData.add(CountryData(3, "영국", false))
-        countryData.add(CountryData(4, "프랑스", true))
-        countryData.add(CountryData(5, "스페인", true))
+        countryData.add(CountryData(13, "영국", null,null,null,null,null,null,null))
+        countryData.add(CountryData(14, "프랑스", null,null,null,null,null,null,null))
+        countryData.add(CountryData(15, "스페인", null,null,null,null,null,null,null))
 
-        countryData.add(CountryData(6, "캐나다", false))
-        countryData.add(CountryData(7, "미국", true))
-        countryData.add(CountryData(8, "멕시코", false))
+        countryData.add(CountryData(16, "캐나다", null,null,null,null,null,null,null))
+        countryData.add(CountryData(17, "미국", null,null,null,null,null,null,null))
+        countryData.add(CountryData(18, "멕시코", null,null,null,null,null,null,null))
 
         categories = ArrayList()
         var countries =  ArrayList<Country>()

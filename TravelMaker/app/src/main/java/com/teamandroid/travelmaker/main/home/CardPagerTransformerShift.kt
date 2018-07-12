@@ -22,6 +22,7 @@ class CardPagerTransformerShift(var baseElevation : Float, var raisingElevation 
             page.elevation = (1-absPosition) * raisingElevation + baseElevation
             page.scaleY = (smallerScale - 1) * absPosition + 1
             page.scaleX = (smallerScale - 1) * absPosition + 1
+            page.isClickable = false
         }
 
     }

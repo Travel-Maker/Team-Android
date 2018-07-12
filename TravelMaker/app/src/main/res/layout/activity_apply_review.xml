@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#14DAC6"
+    tools:context=".detail.DetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/apply_toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:paddingTop="15dp"
+                android:paddingStart="22dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp"
+                android:src="@drawable/x_icon_blue"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/apply_toolBar"
+        android:background="@drawable/apply_border"
+        android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF">
+        android:orientation="vertical">
 
         <include layout="@layout/apply_item_inside"/>
 
@@ -70,8 +104,11 @@
             android:textSize="14sp"
             android:text="댓글"/>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/review_recycler"
+            android:id="@+id/comment_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </LinearLayout>
-</ScrollView>
+
+</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

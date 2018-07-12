@@ -35,7 +35,7 @@ class CountryThumbnailAdapter(var countries : ArrayList<Country>, var activity: 
         view.setOnClickListener(this)
         view.isClickable = false
         view.tag = position
-        view.rc_vp_countryName.text = countries[position].countryData.name
+        view.rc_vp_countryName.text = countries[position].countryData.country_name
         container.addView(view)
         return view
     }
@@ -43,7 +43,7 @@ class CountryThumbnailAdapter(var countries : ArrayList<Country>, var activity: 
     override fun onClick(v: View?) {
         val position = v!!.tag as Int
         val intent = Intent(activity.applicationContext, DetailActivity::class.java)
-        intent.putExtra("country",countries[position].countryData)
+        intent.putExtra("countryData",countries[position].countryData)
         activity.startActivity(intent)
     }
 }

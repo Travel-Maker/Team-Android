@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:background="#70B6C4"
     tools:context=".login.LoginActivity">
 
     <ImageView
         android:id="@+id/applogo"
-        android:layout_width="105dp"
-        android:layout_height="159dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_img"
         android:layout_centerHorizontal="true"/>
 
     <ImageView

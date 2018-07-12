@@ -1,4 +1,7 @@
 package com.teamandroid.travelmaker
 
-class Application {
-}
+data class Application(
+        var board_idx : Int,
+        var board_title : String,
+        var comment_count : Int
+)

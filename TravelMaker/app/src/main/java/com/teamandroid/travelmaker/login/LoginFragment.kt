@@ -80,38 +80,50 @@ class LoginFragment :Fragment() {
                 if(response!!.isSuccessful){
                     val userProfile = response.body()!!.response
 
-                    (mContext as TravelMakerApplication).makeNetworkService("52.79.218.82:3008")
+                    (mContext as TravelMakerApplication).makeNetworkService("http://13.209.235.23:2345/")
 
+                    if(userProfile.age.compareTo("10-19") == 0){
+                        userProfile.age = "10"
+                    }else if(userProfile.age.compareTo("20-29") == 0){
+                        userProfile.age = "20"
+                    }else if(userProfile.age.compareTo("30-39") == 0){
+                        userProfile.age = "30"
+                    }else if(userProfile.age.compareTo("40-49") == 0){
+                        userProfile.age = "40"
+                    }else if(userProfile.age.compareTo("50-59") == 0){
+                        userProfile.age = "50"
+                    }else if(userProfile.age.compareTo("60-69") == 0){
+                        userProfile.age = "60"
+                    }
 
-
+                    Log.d("id",userProfile.id)
                     val postSignIn = (mContext as TravelMakerApplication).getApplicationNetworkService().postUserSignIn(userProfile.id)
 
                     postSignIn.enqueue(object : Callback<PostSignIn>{
                         override fun onFailure(call: Call<PostSignIn>?, t: Throwable?) {
-
+                            t!!.printStackTrace()
                         }
 
                         override fun onResponse(call: Call<PostSignIn>?, response: Response<PostSignIn>?) {
                             if(response!!.isSuccessful){
-                                if(response.body()!!.message.compareTo("Login Success") == 0) {
-                                    (mContext as TravelMakerApplication).setToken(response.body()!!.data[0].token)
-                                    (mContext as TravelMakerApplication).settingUserInfo(response.body()!!.data[0].userInfo)
+                                    Log.d("success","success")
+                                    (mContext as TravelMakerApplication).setToken(response.body()!!.data.token)
+                                    (mContext as TravelMakerApplication).settingUserInfo(response.body()!!.data.checkResult[0])
                                     val intent = Intent(activity.applicationContext,MainActivity::class.java)
-                                    startActivity(intent)
-                                }
-                                else{
-                                    /*
-                                    activity.changeFragment(MakeNickNameFragment.newInstance(NaverUserInfo(
-                                            userProfile.id,
-                                            userProfile.name,
-                                            userProfile.age,
-                                            userProfile.gender,
-                                            userProfile.nickname,
-                                            userProfile.email,
-                                            "",
-                                            userProfile.profile_image
-                                    )))*/
-                                }
+                                    activity.startActivity(intent)
+                                    activity.finish()
+                            }
+                            else{
+                                activity.changeFragment(MakeNickNameFragment.newInstance(NaverUserInfo(
+                                        userProfile.id,
+                                        userProfile.name,
+                                        userProfile.age,
+                                        userProfile.gender,
+                                        "",
+                                        userProfile.email,
+                                        "",
+                                        userProfile.profile_image
+                                )))
                             }
                         }
                     })

@@ -16,8 +16,8 @@ class SearchRecyclerViewAdapter: RecyclerView.Adapter<SearchRecyclerViewHolder>(
     override fun getItemCount(): Int  = items.size
 
     override fun onBindViewHolder(holder: SearchRecyclerViewHolder, position: Int) {
-        holder.countryName.text = items[position].name
-        holder.container.tag = items[position].index
+        holder.countryName.text = items[position].country_name
+        holder.container.tag = items[position].country_idx
     }
 
     fun addItem(items : ArrayList<CountryData>){

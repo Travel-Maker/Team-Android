@@ -25,13 +25,13 @@ class FavoriteFragment : Fragment() {
         fun newInstance(categories : ArrayList<Category>): FavoriteFragment {
             val fragment = FavoriteFragment()
             val temp  = ArrayList<Country>()
-
+            /*
             for(i in 0..(categories.size - 1 )){
                 for(j in 0..(categories[i].country.size -1 )){
                     if(categories[i].country[j].countryData.favorite)
                         temp.add(categories[i].country[j])
                 }
-            }
+            }*/
             fragment.country = temp
             return fragment
         }

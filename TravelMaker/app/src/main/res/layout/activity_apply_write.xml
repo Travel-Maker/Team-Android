@@ -35,13 +35,13 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/apply_border"
         android:layout_below="@+id/apply_toolBar"
         android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/apply_border"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -63,7 +63,7 @@
                             android:layout_height="wrap_content" />
 
                         <EditText
-                            android:id="@+id/title"
+                            android:id="@+id/write_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="7dp"
@@ -190,6 +190,9 @@
                         android:id="@+id/write_etc"
                         android:layout_width="match_parent"
                         android:layout_height="226dp"
+                        android:paddingStart="5dp"
+                        android:paddingTop = "5dp"
+                        android:gravity="top"
                         android:layout_marginStart="18dp"
                         android:layout_marginEnd="18dp"
                         android:background="@drawable/nickname_background" />
@@ -333,7 +336,8 @@
                         android:textColor="#ffffff"
                         android:textSize="15sp"
                         android:gravity="center"
-                        android:layout_marginTop="35dp"/>
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="20dp"/>
 
                 </LinearLayout>
 

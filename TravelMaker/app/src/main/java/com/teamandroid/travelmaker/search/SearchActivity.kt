@@ -58,8 +58,8 @@ class SearchActivity : AppCompatActivity(){
                 if(actionId == EditorInfo.IME_ACTION_SEARCH){
                     val countryName = search_editText.text.toString()
                     for(i in 0..searchData.size - 1){
-                        if(countryName.compareTo(searchData[i].name) == 0) {
-                            GotoCountryDetailActivity(searchData[i].index)
+                        if(countryName.compareTo(searchData[i].country_name) == 0) {
+                            GotoCountryDetailActivity(searchData[i].country_idx)
                             return true
                         }
                     }
@@ -73,7 +73,7 @@ class SearchActivity : AppCompatActivity(){
                 val filteredList = ArrayList<CountryData>()
                 if(s != null && s.isNotEmpty()){
                     for(item in searchData){
-                        if(item.name.toLowerCase().contains(s.toString().toLowerCase())){
+                        if(item.country_name.toLowerCase().contains(s.toString().toLowerCase())){
                             filteredList.add(item)
                         }
                     }
