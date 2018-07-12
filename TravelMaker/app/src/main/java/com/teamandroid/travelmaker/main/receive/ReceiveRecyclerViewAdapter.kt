@@ -2,6 +2,7 @@ package com.teamandroid.travelmaker.main.receive
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.teamandroid.travelmaker.R
 
@@ -17,6 +18,13 @@ class ReceiveRecyclerViewAdapter(var items : ArrayList<ReceiveBoard>) : Recycler
     override fun onBindViewHolder(holder: ReceiveRecyclerViewHolder, position: Int) {
         holder.from.text = items[position].user_nick
         holder.contents.text = items[position].board_data.board_title
+
+        if(items[position].board_data.board_status == 2){
+            holder.createPlan.visibility = View.VISIBLE
+            holder.createPlan.setOnClickListener{
+
+            }
+        }
     }
 
     fun addItem(items : ArrayList<ReceiveBoard>){

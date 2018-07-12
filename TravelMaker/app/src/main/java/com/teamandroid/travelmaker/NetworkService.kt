@@ -38,4 +38,26 @@ interface NetworkService {
 
     @POST("plan/receive")
     fun getReceiveApplication(@Header("token")token : String) : Call<PostReceiveApplication>
+
+    @FormUrlEncoded
+    @POST("bookmark/country")
+    fun postCountryBookMark(@Header("token")token : String,@Field("country_idx") country_idx : Int) : Call<PostCountryBookMark>
+
+
+    @POST("bookmark")
+    fun postBookMark(@Header("token")token : String) : Call<PostBookMark>
+
+    @FormUrlEncoded
+    @POST("comment")
+    fun postComment(@Header("token")token : String, @Field("board_idx") board_idx : Int,
+                    @Field("comment_content") comment_content : String) : Call<PostComment>
+
+
+    @FormUrlEncoded
+    @PUT("/plan/receive")
+    fun postApplicationAccept(@Header("token")token : String,@Field("board_idx") board_idx : Int) : Call<PostApplicationAccept>
+
+    @FormUrlEncoded
+    @DELETE("/plan/receive")
+    fun postApplicationReject(@Header("token")token : String,@Field("board_idx") board_idx : Int) : Call<PostApplicationReject>
 }

@@ -38,7 +38,14 @@
             android:text="[장소] 제목"
             android:textSize="12sp"
             android:textColor="#C8C8C8"/>
-
+        <ImageView
+            android:id="@+id/receive_createPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:src ="@drawable/write_icon"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <View

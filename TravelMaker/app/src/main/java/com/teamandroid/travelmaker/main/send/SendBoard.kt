@@ -1,7 +1,6 @@
 package com.teamandroid.travelmaker.main.send
 
 data class SendBoard (
-        var board_idx : Int,
-        var board_title : String,
-        var board_status : Int
+        var user_nick : String,
+        var board_data : BoardData
 )

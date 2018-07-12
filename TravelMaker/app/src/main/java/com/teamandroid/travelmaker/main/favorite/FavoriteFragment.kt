@@ -4,34 +4,39 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.teamandroid.travelmaker.Expert
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
+import com.teamandroid.travelmaker.TravelMakerApplication
 import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.Country
 import com.teamandroid.travelmaker.main.MainActivity
 import com.teamandroid.travelmaker.detail.DetailActivity
+import com.teamandroid.travelmaker.post.PostBookMark
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FavoriteFragment : Fragment() {
 
     lateinit var country : ArrayList<Country>
     lateinit var experts : ArrayList<Expert>
-
+    lateinit var mView : View
     companion object {
         fun newInstance(categories : ArrayList<Category>): FavoriteFragment {
             val fragment = FavoriteFragment()
             val temp  = ArrayList<Country>()
-            /*
+
             for(i in 0..(categories.size - 1 )){
                 for(j in 0..(categories[i].country.size -1 )){
-                    if(categories[i].country[j].countryData.favorite)
                         temp.add(categories[i].country[j])
                 }
-            }*/
+            }
             fragment.country = temp
             return fragment
         }
@@ -39,41 +44,77 @@ class FavoriteFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_favorite,container,false)
+        mView = inflater.inflate(R.layout.fragment_favorite,container,false)
 
         (activity as MainActivity).initActivityDesign()
 
-        experts = ArrayList()
-        /*
-        experts.add(Expert("ABCDEFG"))
-        experts.add(Expert("ABCDEFG"))
-        experts.add(Expert("ABCDEFG"))*/
+        requestBookMark()
 
+        return mView
+    }
 
-        view.recycler_country.adapter = CountryRecyclerViewAdapter(country)
-        view.recycler_country.layoutManager = LinearLayoutManager(container!!.context,LinearLayoutManager.HORIZONTAL,false)
-        view.recycler_country.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, view.recycler_country,
-                object : RecyclerItemClickListener.OnItemClickListener{
-                    override fun onItemClick(view: View, position: Int) {
-                        val intent = Intent(activity!!.applicationContext, DetailActivity::class.java)
-                        intent.putExtra("country",country[position].countryData)
-                        startActivity(intent)
+    fun requestBookMark(){
+        val postBookMark = (activity!!.applicationContext as TravelMakerApplication).getApplicationNetworkService().postBookMark(
+                (activity!!.applicationContext as TravelMakerApplication).userToken
+        )
+
+        postBookMark.enqueue(object : Callback<PostBookMark>{
+            override fun onFailure(call: Call<PostBookMark>?, t: Throwable?) {
+                t!!.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<PostBookMark>?, response: Response<PostBookMark>?) {
+                if(response!!.isSuccessful){
+                    experts = response.body()!!.expert
+                    Log.d("experts",experts.size.toString())
+                    val index = response.body()!!.country
+                    var temp  = ArrayList<Country>()
+                    var flag = false
+                        for(i in 0..(index.size -1)){
+                            if(index[i].country_idx == 8){
+                                flag = true
+                            }
+                        }
+
+                    if(!flag){
+                        for(i in 0..(country.size -1 )){
+                            if(country[i].countryData.country_idx != 8){
+                                temp.add(country[i])
+                            }
+                        }
                     }
-
-                    override fun onLongItemClick(view: View, position: Int) {}
-                }))
-
-        view.recycler_expert.adapter = PersonRecyclerViewAdapter(experts)
-        view.recycler_expert.layoutManager = LinearLayoutManager(container.context)
-        view.recycler_expert.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, view.recycler_expert,
-                object : RecyclerItemClickListener.OnItemClickListener{
-                    override fun onItemClick(view: View, position: Int) {
+                    else{
+                        temp = country
                     }
+                    mView.recycler_country.adapter = CountryRecyclerViewAdapter(temp)
+                    mView.recycler_country.layoutManager = LinearLayoutManager(activity!!.applicationContext,LinearLayoutManager.HORIZONTAL,false)
+                    mView.recycler_country.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.recycler_country,
+                            object : RecyclerItemClickListener.OnItemClickListener{
+                                override fun onItemClick(view: View, position: Int) {
+                                    val intent = Intent(activity!!.applicationContext, DetailActivity::class.java)
+                                    intent.putExtra("countryData",country[position].countryData)
+                                    startActivity(intent)
+                                }
 
-                    override fun onLongItemClick(view: View, position: Int) {
+                                override fun onLongItemClick(view: View, position: Int) {}
+                            }))
 
-                    }
-                }))
-        return view
+
+                    mView.recycler_expert.adapter = PersonRecyclerViewAdapter(experts)
+                    mView.recycler_expert.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                    mView.recycler_expert.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.recycler_expert,
+                            object : RecyclerItemClickListener.OnItemClickListener{
+                                override fun onItemClick(view: View, position: Int) {
+
+                                }
+
+                                override fun onLongItemClick(view: View, position: Int) {
+
+                                }
+                            }))
+                }
+            }
+
+        })
     }
 }

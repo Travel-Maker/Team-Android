@@ -16,18 +16,18 @@ class SendRecyclerViewAdapter(var items : ArrayList<SendBoard>) : RecyclerView.A
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: SendRecyclerViewHolder, position: Int) {
-        holder.to.text = position.toString()
-        holder.contents.text = items[position].board_title
+        holder.to.text = items[position].user_nick
+        holder.contents.text = items[position].board_data.board_title
 
-        if(items[position].board_status == 2 ){
+        if(items[position].board_data.board_status == 2 ){
             holder.confirm0.visibility = View.INVISIBLE
             holder.confirm1.visibility = View.VISIBLE
         }
-        else if(items[position].board_status == 3){
+        else if(items[position].board_data.board_status == 3){
             holder.confirm0.visibility = View.INVISIBLE
             holder.confirm2.visibility = View.VISIBLE
         }
-        else if(items[position].board_status == 4){
+        else if(items[position].board_data.board_status == 4){
             holder.confirm0.visibility = View.INVISIBLE
             holder.goPlan.visibility = View.VISIBLE
             holder.goPlan.isEnabled = true

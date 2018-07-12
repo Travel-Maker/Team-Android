@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import com.teamandroid.travelmaker.R
 
-class CommentRecyclerViewHolder(itemView : View, var mContext : Context) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class CommentRecyclerViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
     var nickName : TextView
     var contents : TextView
@@ -16,10 +16,6 @@ class CommentRecyclerViewHolder(itemView : View, var mContext : Context) : Recyc
         nickName = itemView.findViewById(R.id.comment_nickname)
         contents = itemView.findViewById(R.id.comment_contents)
         btn_expert = itemView.findViewById(R.id.btn_expert)
-        btn_expert.setOnClickListener(this)
     }
 
-    override fun onClick(v: View?) {
-        //val intent = Intent(mContext, )
-    }
 }

@@ -31,7 +31,6 @@ class ReceiveFragment: Fragment(){
         (activity as MainActivity).initActivityDesign()
         requestReceiveApplication()
 
-
         return mView
     }
 

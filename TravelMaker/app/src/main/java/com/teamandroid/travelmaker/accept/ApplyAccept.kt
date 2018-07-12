@@ -1,26 +1,46 @@
 package com.teamandroid.travelmaker.accept
 
+import android.graphics.Color
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.TravelMakerApplication
 import com.teamandroid.travelmaker.get.GetApplicationDetail
+import com.teamandroid.travelmaker.post.PostApplicationAccept
+import com.teamandroid.travelmaker.post.PostApplicationReject
 import com.teamandroid.travelmaker.review.CommentRecyclerAdapter
 import com.teamandroid.travelmaker.review.PlanRecyclerAdapter
+import kotlinx.android.synthetic.main.activity_apply_accept.*
 import kotlinx.android.synthetic.main.activity_apply_review.*
 import kotlinx.android.synthetic.main.apply_item_inside.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApplyAccept : AppCompatActivity() {
+class ApplyAccept : AppCompatActivity(), View.OnClickListener {
 
+    var board_idx = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_accept)
-        val board_idx = intent.getIntExtra("board_idx",-1)
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = Color.parseColor("#14DAC6")
+        }
+
+        _btn_close.setOnClickListener(this)
+        btn_cancel.setOnClickListener(this)
+        btn_ok.setOnClickListener(this)
+        board_idx = intent.getIntExtra("board_idx",-1)
         requestApplyData(board_idx)
 
     }
@@ -54,5 +74,45 @@ class ApplyAccept : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onClick(v: View?) {
+        if(v == _btn_close){
+            onBackPressed()
+        }
+        else if(v == btn_close){
+            val postApplicationReject = (applicationContext as TravelMakerApplication).getApplicationNetworkService().postApplicationReject(
+                    (applicationContext as TravelMakerApplication).userToken,
+                    board_idx
+            )
+
+            postApplicationReject.enqueue(object : Callback<PostApplicationReject>{
+                override fun onFailure(call: Call<PostApplicationReject>?, t: Throwable?) {
+
+                }
+
+                override fun onResponse(call: Call<PostApplicationReject>?, response: Response<PostApplicationReject>?) {
+                    finish()
+                }
+
+            })
+        }
+        else if(v == btn_ok){
+            val postApplicationAccept = (applicationContext as TravelMakerApplication).getApplicationNetworkService().postApplicationAccept(
+                    (applicationContext as TravelMakerApplication).userToken,
+                    board_idx
+            )
+
+            postApplicationAccept.enqueue(object : Callback<PostApplicationAccept>{
+                override fun onFailure(call: Call<PostApplicationAccept>?, t: Throwable?) {
+
+                }
+
+                override fun onResponse(call: Call<PostApplicationAccept>?, response: Response<PostApplicationAccept>?) {
+                    finish()
+                }
+
+            })
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.teamandroid.travelmaker.detail
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,15 +11,16 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import com.teamandroid.travelmaker.Application
-import com.teamandroid.travelmaker.Expert
-import com.teamandroid.travelmaker.R
-import com.teamandroid.travelmaker.RecyclerItemClickListener
+import com.teamandroid.travelmaker.*
 import com.teamandroid.travelmaker.main.Country
+import com.teamandroid.travelmaker.post.PostCountryBookMark
 import com.teamandroid.travelmaker.review.ApplyReview
 import kotlinx.android.synthetic.main.apply_layout.view.*
 import kotlinx.android.synthetic.main.fragment_countrydetail.*
 import kotlinx.android.synthetic.main.fragment_countrydetail.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class CountryDetailFragment : Fragment(), View.OnClickListener {
@@ -25,6 +28,7 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
     lateinit var country : Country
     lateinit var applications : ArrayList<Application>
     lateinit var experts : ArrayList<Expert>
+    lateinit var sharedPreferences : SharedPreferences
     var expertCount = 0
 
     companion object {
@@ -69,6 +73,8 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
             mview.china_box.visibility = View.VISIBLE
             mview.country_box.visibility = View.INVISIBLE
 
+            sharedPreferences = activity!!.getSharedPreferences("favorite",MODE_PRIVATE)
+            mview.country_favorite.isSelected = sharedPreferences.getBoolean(country.countryData.country_idx.toString(),false)
             mview.weather.text = country.countryData.country_climate.toString() + "℃"
             mview.money.text = "약"+country.countryData.country_exchange.toString()+"위안"
             mview.time.text = "서울-"+country.countryData.country_time_difference+"시간"
@@ -123,6 +129,22 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
         }
         else if(v == mview.country_favorite){
             mview.country_favorite.isSelected = !mview.country_favorite.isSelected
+
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(country.countryData.country_idx.toString(),mview.country_favorite.isSelected).apply()
+
+            val postCountryBookMark = (activity!!.applicationContext as TravelMakerApplication).getApplicationNetworkService().postCountryBookMark(
+                    (activity!!.applicationContext as TravelMakerApplication).userToken,country.countryData.country_idx)
+
+            postCountryBookMark.enqueue(object : Callback<PostCountryBookMark>{
+                override fun onFailure(call: Call<PostCountryBookMark>?, t: Throwable?) {
+
+                }
+
+                override fun onResponse(call: Call<PostCountryBookMark>?, response: Response<PostCountryBookMark>?) {
+                }
+
+            })
         }
     }
 

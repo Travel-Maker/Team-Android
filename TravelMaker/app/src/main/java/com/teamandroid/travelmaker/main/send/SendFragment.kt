@@ -47,7 +47,7 @@ class SendFragment : Fragment() {
 
             override fun onResponse(call: Call<PostSendApplication>?, response: Response<PostSendApplication>?) {
                 if(response!!.isSuccessful) {
-                    items = response.body()!!.send_board
+                    items = response.body()!!.receive_board
 
                     mView.send_recycler.adapter = SendRecyclerViewAdapter(items)
                     mView.send_recycler.layoutManager = LinearLayoutManager(activity!!.applicationContext)
@@ -55,7 +55,7 @@ class SendFragment : Fragment() {
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
                                     val intent = Intent(activity!!.applicationContext, ApplyReview::class.java)
-                                    intent.putExtra("board_idx", items[position].board_idx)
+                                    intent.putExtra("board_idx", items[position].board_data.board_idx)
                                     startActivity(intent)
                                 }
 
