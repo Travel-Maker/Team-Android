@@ -57,6 +57,9 @@
             android:label="@string/title_activity_maps" />
 
         <activity android:name=".PlanMainActivity"/>
+        <activity android:name=".travelplanread.GetPlanActivity"/>
+        <activity android:name=".travelplanread.GetSpecificActivity"/>
+        <activity android:name=".travelplanread.GetReviewActivity"/>
     </application>
 
 </manifest>

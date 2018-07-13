@@ -8,10 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.teamandroid.travelmaker.Expert
-import com.teamandroid.travelmaker.R
-import com.teamandroid.travelmaker.RecyclerItemClickListener
-import com.teamandroid.travelmaker.TravelMakerApplication
+import com.teamandroid.travelmaker.*
 import com.teamandroid.travelmaker.main.Category
 import com.teamandroid.travelmaker.main.Country
 import com.teamandroid.travelmaker.main.MainActivity
@@ -105,7 +102,11 @@ class FavoriteFragment : Fragment() {
                     mView.recycler_expert.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.recycler_expert,
                             object : RecyclerItemClickListener.OnItemClickListener{
                                 override fun onItemClick(view: View, position: Int) {
-
+                                    val intent = Intent(activity!!.applicationContext, ExpertActivity::class.java)
+                                    intent.putExtra("expert_idx",experts[position].user_idx)
+                                    intent.putExtra("expert_grade",experts[position].expert_grade)
+                                    intent.putExtra("country_idx",8)
+                                    startActivity(intent)
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {

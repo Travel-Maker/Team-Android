@@ -132,7 +132,7 @@ class ApplyWrite : AppCompatActivity(), View.OnClickListener {
                         override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                             during += " ~ "+year.toString() + "-" + (month + 1).toString() + "-" + dayOfMonth.toString()
 
-                            endDate = Date(year,month+1,dayOfMonth)
+                            endDate = Date(year,month+1,dayOfMonth+1)
 
                             least_date = caculatedate()
                             if(least_date != 0){
@@ -265,8 +265,8 @@ class ApplyWrite : AppCompatActivity(), View.OnClickListener {
 
         if(expert_grade != -1){
             have_coin.text = currentCoin.toString() + "코인"
-            payCoin = (expert_grade * 100)
-            pay.text = payCoin.toString()
+            payCoin = ((expert_grade +1)* 100)
+            pay.text = payCoin.toString() + "코인"
             total_coin.text = pay.text
             residueCoin = currentCoin - payCoin
 

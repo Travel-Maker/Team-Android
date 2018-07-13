@@ -24,7 +24,7 @@ class ReceiveRecyclerViewAdapter(var items : ArrayList<ReceiveBoard>) : Recycler
         holder.from.text = items[position].user_nick
         holder.contents.text = items[position].board_data.board_title
 
-        if(items[position].board_data.board_status == 2){
+        if(items[position].board_data.board_status == 2 || items[position].board_data.board_status == 4 ){
             holder.createPlan.visibility = View.VISIBLE
             holder.createPlan.isEnabled = true
             holder.createPlan.setOnClickListener{

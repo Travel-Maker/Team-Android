@@ -32,6 +32,7 @@ class ScheduleTapFragment : Fragment() {
     lateinit var board : Board
     lateinit var  totalCost : TextView
     lateinit var mview : View
+    var totalCostValue = 0
     companion object {
         fun newInstance(board : Board) : ScheduleTapFragment{
             val fragment = ScheduleTapFragment()
@@ -43,13 +44,17 @@ class ScheduleTapFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        var totalCostValue = 0
-        for(i in 0..TotalData.totalData.size-1){
-            for(data in TotalData.totalData.get(i+1)!!){
-                totalCostValue += data.cost!!.cost_budget.toInt() + data.trans!!.trans_cost.toInt()
-            }
-        }
 
+            for(i in 0..TotalData.totalData.size-1){
+                for(data in TotalData.totalData.get(i+1)!!){
+                    if(data.cost != null ){
+                        totalCostValue += data.cost!!.cost_budget.toInt()
+                    }
+                    if(data.trans != null){
+                        totalCostValue += data.trans!!.trans_cost.toInt()
+                    }
+                }
+            }
         mview.totalCost!!.text = totalCostValue.toString() + " KRW"
 
     }

@@ -26,14 +26,18 @@ import retrofit2.Response
 class ReceiveFragment: Fragment(){
     lateinit var mView : View
     lateinit var items : ArrayList<ReceiveBoard>
-
+    var flag = true
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         mView = inflater.inflate(R.layout.fragment_receive,container,false)
         (activity as MainActivity).initActivityDesign()
         requestReceiveApplication()
-
         return mView
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     fun requestReceiveApplication(){
@@ -48,40 +52,41 @@ class ReceiveFragment: Fragment(){
 
             override fun onResponse(call: Call<PostReceiveApplication>?, response: Response<PostReceiveApplication>?) {
                 if(response!!.isSuccessful){
-                    Log.d("ok","ok")
-                    items = response.body()!!.receive_board
 
-                    mView.receive_recycler.adapter = ReceiveRecyclerViewAdapter(items)
-                    mView.receive_recycler.layoutManager = LinearLayoutManager(activity!!.applicationContext)
-                    mView.receive_recycler.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.receive_recycler,
-                            object : RecyclerItemClickListener.OnItemClickListener{
-                                override fun onItemClick(view: View, position: Int) {
-                                    if(items[position].board_data.board_status == 2){
-                                        val intent = Intent(activity!!.applicationContext, PlanMainActivity::class.java)
-                                        intent.putExtra("board_idx",items[position].board_data.board_idx)
-                                        startActivity(intent)
-                                    }else{
-                                        val intent = Intent(activity!!.applicationContext, ApplyAccept::class.java)
-                                        intent.putExtra("board_idx",items[position].board_data.board_idx)
-                                        startActivityForResult(intent,200)
-                                    }
-                                }
 
-                                override fun onLongItemClick(view: View, position: Int) {
-                                    val deleteDialog = DeleteDialogFragment()
-                                    deleteDialog.setOkButton(object : View.OnClickListener{
-                                        override fun onClick(v: View?) {
+                    items = ArrayList()
 
+                    val item = response.body()!!.receive_board
+
+                    for(i in (0..item.size - 1)){
+                        if(item[i].board_data.board_status != 3){
+                            items.add(item[i])
+                        }
+                    }
+
+                        mView.receive_recycler.adapter = ReceiveRecyclerViewAdapter(items)
+                        mView.receive_recycler.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                        mView.receive_recycler.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.receive_recycler,
+                                object : RecyclerItemClickListener.OnItemClickListener {
+                                    override fun onItemClick(view: View, position: Int) {
+                                        if (items[position].board_data.board_status == 2) {
+                                            val intent = Intent(activity!!.applicationContext, PlanMainActivity::class.java)
+                                            intent.putExtra("board_idx", items[position].board_data.board_idx)
+                                            startActivity(intent)
+                                        } else if (items[position].board_data.board_status == 4) {
+
+                                        } else {
+                                            val intent = Intent(activity!!.applicationContext, ApplyAccept::class.java)
+                                            intent.putExtra("board_idx", items[position].board_data.board_idx)
+                                            startActivityForResult(intent, 200)
                                         }
-                                    })
+                                    }
 
-                                    deleteDialog.setcancelButton(object : View.OnClickListener{ override fun onClick(v: View?) {} })
-
-                                    deleteDialog.show(activity!!.supportFragmentManager,null)
-                                }
-                            }))
+                                    override fun onLongItemClick(view: View, position: Int) {
+                                    }
+                                }))
+                    }
                 }
-            }
 
         })
     }
