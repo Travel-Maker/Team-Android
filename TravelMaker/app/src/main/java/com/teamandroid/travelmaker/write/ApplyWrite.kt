@@ -264,8 +264,13 @@ class ApplyWrite : AppCompatActivity(), View.OnClickListener {
     fun calculateCoin(){
 
         if(expert_grade != -1){
-            total_coin.text = (expert_grade * 100).toString()
-            pay.text = total_coin.text
+            have_coin.text = currentCoin.toString() + "코인"
+            payCoin = (expert_grade * 100)
+            pay.text = payCoin.toString()
+            total_coin.text = pay.text
+            residueCoin = currentCoin - payCoin
+
+            residue_coin.text = residueCoin.toString() + "코인"
             total_coin.isClickable = false
         }
         else{

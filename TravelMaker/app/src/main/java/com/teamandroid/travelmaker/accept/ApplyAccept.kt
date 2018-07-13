@@ -13,17 +13,19 @@ import com.teamandroid.travelmaker.TravelMakerApplication
 import com.teamandroid.travelmaker.get.GetApplicationDetail
 import com.teamandroid.travelmaker.post.PostApplicationAccept
 import com.teamandroid.travelmaker.post.PostApplicationReject
+import com.teamandroid.travelmaker.review.Board
 import com.teamandroid.travelmaker.review.CommentRecyclerAdapter
 import com.teamandroid.travelmaker.review.PlanRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_apply_accept.*
 import kotlinx.android.synthetic.main.activity_apply_review.*
 import kotlinx.android.synthetic.main.apply_item_inside.*
+import kotlinx.android.synthetic.main.delete_dialog.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ApplyAccept : AppCompatActivity(), View.OnClickListener {
-
+    lateinit var board : ArrayList<Board>
     var board_idx = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +40,8 @@ class ApplyAccept : AppCompatActivity(), View.OnClickListener {
         }
 
         _btn_close.setOnClickListener(this)
-        btn_cancel.setOnClickListener(this)
-        btn_ok.setOnClickListener(this)
+        accept_btn_cancel.setOnClickListener(this)
+        accept_btn_ok.setOnClickListener(this)
         board_idx = intent.getIntExtra("board_idx",-1)
         requestApplyData(board_idx)
 
@@ -56,7 +58,7 @@ class ApplyAccept : AppCompatActivity(), View.OnClickListener {
 
             override fun onResponse(call: Call<GetApplicationDetail>?, response: Response<GetApplicationDetail>?) {
                 if(response!!.isSuccessful){
-                    val board = response.body()!!.board
+                    board = response.body()!!.board
 
                     apply_title.setText("["+board[0].board_city +"] "+board[0].board_title)
                     apply_id.text = response.body()!!.sender[0].user_nick
@@ -80,7 +82,7 @@ class ApplyAccept : AppCompatActivity(), View.OnClickListener {
         if(v == _btn_close){
             onBackPressed()
         }
-        else if(v == btn_close){
+        else if(v == accept_btn_cancel){
             val postApplicationReject = (applicationContext as TravelMakerApplication).getApplicationNetworkService().postApplicationReject(
                     (applicationContext as TravelMakerApplication).userToken,
                     board_idx
@@ -97,10 +99,12 @@ class ApplyAccept : AppCompatActivity(), View.OnClickListener {
 
             })
         }
-        else if(v == btn_ok){
+        else if(v == accept_btn_ok){
             val postApplicationAccept = (applicationContext as TravelMakerApplication).getApplicationNetworkService().postApplicationAccept(
                     (applicationContext as TravelMakerApplication).userToken,
-                    board_idx
+                    board[0].board_idx,
+                    board[0].board_coin,
+                    board[0].user_idx
             )
 
             postApplicationAccept.enqueue(object : Callback<PostApplicationAccept>{

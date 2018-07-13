@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="statusbarTransparent">#20000000</color>
     <color name="statusbarWhite">#FAFAFA</color>
+    <color name="onClicked">#ffffff</color>
+    <color name="notOnClicked">#94E8E0</color>
+    <color name="day">#4D4D4D</color>
+    <color name="specific_title">#11D1BE</color>
 </resources>

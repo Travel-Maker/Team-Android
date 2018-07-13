@@ -1,5 +1,6 @@
 package com.teamandroid.travelmaker.review
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -49,7 +50,7 @@ class ApplyReview : AppCompatActivity(), View.OnClickListener {
                         board_idx,
                         comment_contents.text.toString().trim()
                 )
-
+                comment_contents.setText("")
                 postComment.enqueue(object : Callback<PostComment>{
                     override fun onFailure(call: Call<PostComment>?, t: Throwable?) {
                         t!!.printStackTrace()
@@ -85,7 +86,10 @@ class ApplyReview : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_OK,intent)
+        super.onBackPressed()
+    }
 
     fun requestApplyData(board_idx : Int){
         val getApplicationDetail = (applicationContext as TravelMakerApplication).getApplicationNetworkService().getdetailApplication(board_idx)

@@ -21,4 +21,9 @@ class MoreApplicationsRecyclerAdapter(var item : ArrayList<Application>) : Recyc
         holder.title.text = item[position].board_title
         holder.comments.text = item[position].comment_count.toString()
     }
+
+    fun addItems(item : ArrayList<Application>){
+        this.item = item
+        notifyDataSetChanged()
+    }
 }

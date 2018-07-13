@@ -15,6 +15,7 @@ import com.teamandroid.travelmaker.*
 import com.teamandroid.travelmaker.main.Country
 import com.teamandroid.travelmaker.post.PostCountryBookMark
 import com.teamandroid.travelmaker.review.ApplyReview
+import com.teamandroid.travelmaker.review.CommentRecyclerAdapter
 import kotlinx.android.synthetic.main.apply_layout.view.*
 import kotlinx.android.synthetic.main.fragment_countrydetail.*
 import kotlinx.android.synthetic.main.fragment_countrydetail.view.*
@@ -22,6 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.math.exp
 
 class CountryDetailFragment : Fragment(), View.OnClickListener {
     lateinit var mview : View
@@ -58,14 +60,14 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
 
             var img = 0
             when(country.countryData.country_idx){
-                10 -> img = R.drawable.korea
-                12 -> img = R.drawable.japan
-                13 -> img = R.drawable.uk
-                14 -> img = R.drawable.france
-                15 -> img = R.drawable.spain
-                16 -> img = R.drawable.canada
-                17 -> img = R.drawable.america
-                18 -> img = R.drawable.mexico
+                10 -> img = R.drawable.korea_page
+                12 -> img = R.drawable.japan_page
+                13 -> img = R.drawable.uk_page
+                14 -> img = R.drawable.france_page
+                15 -> img = R.drawable.spain_page
+                16 -> img = R.drawable.canada_page
+                17 -> img = R.drawable.usa_page
+                18 -> img = R.drawable.mexico_page
             }
             mview.country_box.setBackgroundResource(img)
         }
@@ -79,6 +81,10 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
             mview.money.text = "약"+country.countryData.country_exchange.toString()+"위안"
             mview.time.text = "서울-"+country.countryData.country_time_difference+"시간"
             mview.language.text = country.countryData.country_language
+
+            mview.expert_image1.setOnClickListener(this)
+            mview.expert_image2.setOnClickListener(this)
+            mview.expert_image3.setOnClickListener(this)
 
             settingExpert(mview.expert_image1, mview.expert_grade1, mview.expert_nickName1, mview.expert_tendency1, mview.expert_city1
                     , mview.expert_ratingBar1, mview.expert_ratingValue1)
@@ -109,7 +115,8 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
                         override fun onItemClick(view: View, position: Int) {
                             val intent = Intent(activity!!.applicationContext, ApplyReview::class.java)
                             intent.putExtra("board_idx",applications[position].board_idx)
-                            startActivity(intent)
+                            intent.putExtra("position",position)
+                            startActivityForResult(intent,200)
                         }
 
                         override fun onLongItemClick(view: View, position: Int) {
@@ -146,6 +153,27 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
 
             })
         }
+
+        else{
+            val intent = Intent(activity!!.applicationContext,ExpertActivity::class.java)
+
+            if(v == mview.expert_image1){
+                intent.putExtra("expert_idx",experts[0].user_idx)
+                intent.putExtra("expert_grade", experts[0].expert_grade)
+            }
+            else if(v == mview.expert_image2){
+                intent.putExtra("expert_idx",experts[1].user_idx)
+                intent.putExtra("expert_grade", experts[1].expert_grade)
+            }else {
+                intent.putExtra("expert_idx",experts[2].user_idx)
+                intent.putExtra("expert_grade", experts[2].expert_grade)
+            }
+
+            intent.putExtra("country_idx",country.countryData.country_idx)
+
+            startActivity(intent)
+        }
+
     }
 
     private fun settingExpert(expert_image : ImageView, expert_grade : ImageView, expert_nickName : TextView, expert_tendency : TextView, expert_city : TextView,
@@ -224,5 +252,10 @@ class CountryDetailFragment : Fragment(), View.OnClickListener {
             expert_ratingBar.rating = (experts[expertCount].expert_rate)!!.toFloat()
             expert_ratingValue.text = "("+experts[expertCount].expert_rate.toString()+")"
         expertCount++
+    }
+
+    fun changeCommentCount(position : Int){
+        applications[position].comment_count++
+        (mview.application_recycler.adapter as MoreApplicationsRecyclerAdapter).addItems(applications)
     }
 }

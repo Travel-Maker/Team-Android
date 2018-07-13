@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.teamandroid.travelmaker.PlanMainActivity
 import com.teamandroid.travelmaker.accept.ApplyAccept
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.RecyclerItemClickListener
@@ -17,6 +18,7 @@ import com.teamandroid.travelmaker.main.MainActivity
 import com.teamandroid.travelmaker.post.PostReceiveApplication
 
 import kotlinx.android.synthetic.main.fragment_receive.view.*
+import kotlinx.android.synthetic.main.fragment_receive_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,9 +56,15 @@ class ReceiveFragment: Fragment(){
                     mView.receive_recycler.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.receive_recycler,
                             object : RecyclerItemClickListener.OnItemClickListener{
                                 override fun onItemClick(view: View, position: Int) {
-                                    val intent = Intent(activity!!.applicationContext, ApplyAccept::class.java)
-                                    intent.putExtra("board_idx",items[position].board_data.board_idx)
-                                    startActivityForResult(intent,200)
+                                    if(items[position].board_data.board_status == 2){
+                                        val intent = Intent(activity!!.applicationContext, PlanMainActivity::class.java)
+                                        intent.putExtra("board_idx",items[position].board_data.board_idx)
+                                        startActivity(intent)
+                                    }else{
+                                        val intent = Intent(activity!!.applicationContext, ApplyAccept::class.java)
+                                        intent.putExtra("board_idx",items[position].board_data.board_idx)
+                                        startActivityForResult(intent,200)
+                                    }
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {

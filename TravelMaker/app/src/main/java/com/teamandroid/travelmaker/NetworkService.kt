@@ -4,6 +4,9 @@ import com.teamandroid.travelmaker.get.GetApplicationDetail
 import com.teamandroid.travelmaker.get.GetCountryDetail
 import com.teamandroid.travelmaker.get.GetNaverLoginResponse
 import com.teamandroid.travelmaker.post.*
+import com.teamandroid.travelmaker.travelplanwrite.transdata.TmPostResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -55,9 +58,16 @@ interface NetworkService {
 
     @FormUrlEncoded
     @PUT("/plan/receive")
-    fun postApplicationAccept(@Header("token")token : String,@Field("board_idx") board_idx : Int) : Call<PostApplicationAccept>
+    fun postApplicationAccept(@Header("token")token : String,@Field("board_idx") board_idx : Int,
+                              @Field("board_coin") board_coin : Int, @Field("user_idx") user_idx : Int) : Call<PostApplicationAccept>
 
     @FormUrlEncoded
     @DELETE("/plan/receive")
     fun postApplicationReject(@Header("token")token : String,@Field("board_idx") board_idx : Int) : Call<PostApplicationReject>
+
+
+    @Multipart
+    @POST("plan")
+    fun postPlan(@Header("token") token : String, @Part("board_idx") board_idx : RequestBody,
+                 @Part("plan") plan : RequestBody, @Part place_img : ArrayList<MultipartBody.Part>?) : Call<TmPostResponse>
 }

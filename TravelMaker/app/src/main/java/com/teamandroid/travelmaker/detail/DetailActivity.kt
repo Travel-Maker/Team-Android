@@ -1,5 +1,7 @@
 package com.teamandroid.travelmaker.detail
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
@@ -27,12 +29,15 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener{
     lateinit var applications : ArrayList<Application>
     lateinit var experts : ArrayList<Expert>
     var isBackPress = false
+    lateinit var countryData : CountryData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        var countryData = intent.getParcelableExtra<CountryData>("countryData")
+        countryData = intent.getParcelableExtra<CountryData>("countryData")
+
+        btn_close.setOnClickListener(this)
 
         if(countryData.country_idx == 8)
             requestCountryDetail(countryData.country_idx)
@@ -45,9 +50,12 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener{
             val fragment = CountryDetailFragment.newInstance(country,experts, applications)
             supportFragmentManager.beginTransaction().replace(R.id.other_container,fragment).commit()
         }
-        btn_close.setOnClickListener(this)
 
         stackFragment = ArrayList()
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     fun changeFragment(fragment: Fragment){
@@ -182,5 +190,13 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 200 && resultCode == RESULT_OK){
+            val fragment = supportFragmentManager.findFragmentById(R.id.other_container) as CountryDetailFragment
+            fragment.changeCommentCount(intent.getIntExtra("position",-1))
+        }
     }
 }
