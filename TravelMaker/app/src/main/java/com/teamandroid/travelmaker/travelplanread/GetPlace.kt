@@ -12,7 +12,7 @@ class GetPlace (
         var place_latitude : Double,
         var place_longitude : Double,
         var place_budget : Int,
-        var place_budget_comment : String,
+        var place_budget_comment : String?,
         var place_img : String?,
         var board_idx : Int
 ) : Parcelable {
@@ -27,8 +27,7 @@ class GetPlace (
             parcel.readInt(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readInt()) {
-    }
+            parcel.readInt())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(place_idx)

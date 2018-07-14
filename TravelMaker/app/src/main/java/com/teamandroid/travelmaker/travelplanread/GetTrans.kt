@@ -21,9 +21,7 @@ class GetTrans (
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readInt()) {
-    }
-
+            parcel.readInt())
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(trans_idx)
         parcel.writeInt(trans_name)

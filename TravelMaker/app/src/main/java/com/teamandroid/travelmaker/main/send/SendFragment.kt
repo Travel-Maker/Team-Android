@@ -60,10 +60,11 @@ class SendFragment : Fragment() {
                                         val intent = Intent(activity!!.applicationContext, GetPlanActivity::class.java)
                                         intent.putExtra("board_idx", items[position].board_data.board_idx)
                                         startActivity(intent)
+                                    }else {
+                                        val intent = Intent(activity!!.applicationContext, ApplyReview::class.java)
+                                        intent.putExtra("board_idx", items[position].board_data.board_idx)
+                                        startActivity(intent)
                                     }
-                                    val intent = Intent(activity!!.applicationContext, ApplyReview::class.java)
-                                    intent.putExtra("board_idx", items[position].board_data.board_idx)
-                                    startActivity(intent)
                                 }
 
                                 override fun onLongItemClick(view: View, position: Int) {

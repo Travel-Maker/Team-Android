@@ -45,7 +45,7 @@ class ReturnMapTabFragment : Fragment(), OnMapReadyCallback {
 
 //        MapObject.latitude.size
 
-        for(i in 0..TotalData.totalData.size){
+        for(i in 0..(TotalData.totalData.size -1 )){
             var dataList : ArrayList<Data> = TotalData.totalData.get(i)!!
             for(tempdata in dataList){
                 mOptions.position(LatLng(tempdata.latitude!!, tempdata.latitude!!))

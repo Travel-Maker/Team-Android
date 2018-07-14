@@ -31,7 +31,7 @@ class GetScheduleTapFragment: Fragment() {
         val view = inflater.inflate(R.layout.get_schedule_tab, container, false)
         scheduleItems = ArrayList()
 
-        for(i in 0..(activity!! as GetPlanActivity).getDay()){
+        for(i in 0..(activity!! as GetPlanActivity).getDay() -1 ){
             scheduleItems.add(GetScheduleItem(i + 1, "내용보기"))
         }
 

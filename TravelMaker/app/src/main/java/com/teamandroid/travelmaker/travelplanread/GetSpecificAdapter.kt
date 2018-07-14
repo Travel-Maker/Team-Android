@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.net.Uri
+import android.util.Log
 import com.bumptech.glide.RequestManager
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.travelplanwrite.dataSets.TotalData
@@ -54,7 +55,7 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, var pla
         //mainView.setOnClickListener(onItemClick)
 
     }
-    override fun getItemCount(): Int = specificItems.size
+    override fun getItemCount(): Int = plan.trans.size
 
     //    @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: GetSpecificViewHolder, position: Int) {
@@ -85,15 +86,21 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, var pla
                 var memo_explain: TextView = memo_view.findViewById(R.id.memo_explain) as TextView
                 var memo_img: ImageView = memo_view.findViewById(R.id.memo_img) as ImageView
 
-                var data: Uri = Uri.parse(plan.place[position].place_img)
-                memo_explain.text = plan.place[position].place_comment
+                if(plan.place[position].place_img != null){
 
-                requestManager
-                        .load(data)
-                        .centerCrop()
-                        .into(memo_img)
-                memo_layout.setVisibility(View.VISIBLE)
-                memo_layout.addView(memo_view)
+                    var data: Uri = Uri.parse(plan.place[position].place_img)
+
+                    Log.d("parse",data.toString())
+                    requestManager
+                            .load(data)
+                            .centerCrop()
+                            .into(memo_img)
+                    memo_layout.setVisibility(View.VISIBLE)
+                    memo_layout.addView(memo_view)
+
+                }
+
+                memo_explain.text = plan.place[position].place_comment
 
 //        holder.itemView.cost.setOnClickListener {
 //            val intent : Intent = Intent((context as Activity), CostActivity::class.java)
@@ -113,6 +120,8 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, var pla
                 var cost_budget: TextView = cost_view.findViewById(R.id.cost_budget) as TextView
 
                 cost_comment.text = plan.place[position].place_budget_comment
+
+        Log.d("ss",cost_comment.text.toString())
                 cost_budget.text = plan.place[position].place_budget.toString()
 
                 cost_layout.setVisibility(View.VISIBLE)

@@ -116,7 +116,7 @@ class GetPlanActivity : AppCompatActivity() {
             override fun onResponse(call: Call<GetPlanData>?, response: Response<GetPlanData>?) {
                 if(response!!.isSuccessful){
                     plan = response.body()!!.total_plan
-                    scheduleFragment = GetScheduleTapFragment()
+                    scheduleFragment = GetScheduleTapFragment.newInstance(plan)
                     mapFragment = ReturnMapTabFragment()
                     val fm = supportFragmentManager
                     val tran = fm.beginTransaction()

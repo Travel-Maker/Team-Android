@@ -4,6 +4,7 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_specific.*
@@ -79,7 +80,7 @@ class GetSpecificActivity : AppCompatActivity() {
         TotalData.totalData.put(2, testDataArrayList_2)*/
 
 
-        if(this.intent.hasExtra("notFirstToSpecific")){
+        if(intent.hasExtra("notFirstToSpecific")){
             curDay = intent.getIntExtra("notFirstToSpecific", 0)
             place = intent.getParcelableArrayListExtra("place")
             trans = intent.getParcelableArrayListExtra("trans")
@@ -91,16 +92,20 @@ class GetSpecificActivity : AppCompatActivity() {
 
             specificItems = ArrayList()
 
-                for (i in 0..(place.size - 1)) {
+                for (i in 0..(trans.size - 1)) {
                     specificItems.add(GetSpecificItem(place[i].place_name))
                 }
 
+            Log.d("spec",place.size.toString())
+            Log.d("spec",trans.size.toString())
+            Log.d("spec",specificItems.size.toString())
             specificAdapter = GetSpecificAdapter(specificItems, GetPlan(place, trans), day.text.toString(), this,requestManager)
             specific_rv.layoutManager = LinearLayoutManager(this)
             specific_rv.adapter = specificAdapter
         }
 
 
+        /*
         specificItems = ArrayList()
         //여기서 1일차 정보만 전달된다. 여기서 지도에서 지역을 받아 specificItems에 add해야한다
 
@@ -112,7 +117,7 @@ class GetSpecificActivity : AppCompatActivity() {
 
         specificAdapter = GetSpecificAdapter(specificItems, GetPlan(place, trans),day.text.toString(), this, requestManager)
         specific_rv.layoutManager = LinearLayoutManager(this)
-        specific_rv.adapter = specificAdapter
+        specific_rv.adapter = specificAdapter*/
     }
 
 }
