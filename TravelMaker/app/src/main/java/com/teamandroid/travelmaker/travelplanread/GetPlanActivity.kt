@@ -9,7 +9,11 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.teamandroid.travelmaker.R
+import com.teamandroid.travelmaker.TravelMakerApplication
 import kotlinx.android.synthetic.main.activity_get_plan.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class GetPlanActivity : AppCompatActivity() {
 
@@ -20,6 +24,7 @@ class GetPlanActivity : AppCompatActivity() {
     lateinit var scheduleFragment : GetScheduleTapFragment
     lateinit var mapFragment: ReturnMapTabFragment
     lateinit var fl_tab : FrameLayout
+    lateinit var plan : ArrayList<GetPlan>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +34,8 @@ class GetPlanActivity : AppCompatActivity() {
         map_btn = findViewById(R.id.map_btn)
         fl_tab = findViewById(R.id.tab_fl)
 
-        scheduleFragment = GetScheduleTapFragment()
-        mapFragment = ReturnMapTabFragment()
-        val fm = supportFragmentManager
-        val tran = fm.beginTransaction()
-        tran.add(R.id.tab_fl, scheduleFragment)
-        tran.commit()
+        requestPlanData()
+
 
 //        val layoutInflater:LayoutInflater = LayoutInflater.from(applicationContext)
 
@@ -97,5 +98,38 @@ class GetPlanActivity : AppCompatActivity() {
                 tran.commit()
             }
         }
+    }
+
+
+
+    fun requestPlanData(){
+        val getPlan  = (applicationContext as TravelMakerApplication).getApplicationNetworkService().getPlan(
+                (applicationContext as TravelMakerApplication).userToken,
+                intent.getIntExtra("board_idx",0)
+        )
+
+        getPlan.enqueue(object : Callback<GetPlanData> {
+            override fun onFailure(call: Call<GetPlanData>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(call: Call<GetPlanData>?, response: Response<GetPlanData>?) {
+                if(response!!.isSuccessful){
+                    plan = response.body()!!.total_plan
+                    scheduleFragment = GetScheduleTapFragment()
+                    mapFragment = ReturnMapTabFragment()
+                    val fm = supportFragmentManager
+                    val tran = fm.beginTransaction()
+                    tran.add(R.id.tab_fl, scheduleFragment)
+                    tran.commit()
+                }
+            }
+
+        })
+    }
+
+
+    fun getDay() : Int{
+        return plan.size
     }
 }

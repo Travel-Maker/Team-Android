@@ -16,16 +16,25 @@ class GetScheduleTapFragment: Fragment() {
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     lateinit var scheduleItems : ArrayList<GetScheduleItem>
     lateinit var activity_context : Context
+    lateinit var plan : ArrayList<GetPlan>
+
+    companion object {
+        fun newInstance(plan : ArrayList<GetPlan>) : GetScheduleTapFragment{
+            val fragment = GetScheduleTapFragment()
+            fragment.plan = plan
+            return fragment
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity_context = container!!.context
         val view = inflater.inflate(R.layout.get_schedule_tab, container, false)
         scheduleItems = ArrayList()
-        scheduleItems.add(GetScheduleItem(1, "내용보기"))
-        scheduleItems.add(GetScheduleItem(2, "내용보기"))
-        scheduleItems.add(GetScheduleItem(3, "내용보기"))
-        scheduleItems.add(GetScheduleItem(4, "내용보기"))
-        scheduleItems.add(GetScheduleItem(5, "내용보기"))
+
+        for(i in 0..(activity!! as GetPlanActivity).getDay()){
+            scheduleItems.add(GetScheduleItem(i + 1, "내용보기"))
+        }
+
 
         // Set the adapter
 
@@ -40,7 +49,7 @@ class GetScheduleTapFragment: Fragment() {
 
             // specify an adapter (see also next example)
 
-            mAdapter = GetScheduleAdapter(scheduleItems, activity_context)
+            mAdapter = GetScheduleAdapter(scheduleItems, plan , activity_context)
             mRecyclerView.adapter = mAdapter
         }
         return view

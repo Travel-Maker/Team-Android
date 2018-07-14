@@ -108,7 +108,7 @@ class ApplyReview : AppCompatActivity(), View.OnClickListener {
                     apply_id.text = response.body()!!.sender[0].user_nick
                     apply_time.text = board[0].board_writetime
 
-                    apply_during.text = board[0].board_arr_time + " ~ " + board[0].board_dep_time
+                    apply_during.text = board[0].board_dep_time + " ~ " + board[0].board_arr_time
                     apply_day.text = board[0].board_days.toString() + "일"
                     apply_coin.text = board[0].board_coin.toString() + "코인"
                     apply_etc.text = board[0].board_content

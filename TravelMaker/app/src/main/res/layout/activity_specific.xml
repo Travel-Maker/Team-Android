@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#20DAC7">
 
@@ -16,55 +16,61 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#ffffff">
+            android:layout_height="wrap_content"
+            android:background="#fafafa">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main_toolBar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/back_btn"
-                android:layout_marginLeft="18dp"
-                android:layout_centerVertical="true"/>
+                android:background="@drawable/toolbar_background_normal"
+                app:contentInsetStart="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btn_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="15dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="22dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/x_icon_blue" />
+
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/travel_maker_home"/>
 
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/travel_maker_main"
-                android:layout_centerInParent="true"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/search_btn"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="18dp"/>
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/x_icon_gray"
-                android:layout_marginLeft="8dp"
-                android:layout_centerVertical="true"/>
 
             <Button
                 android:id="@+id/save_btn"
                 android:layout_width="40dp"
                 android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/rounded_save_btn"
                 android:text="저장"
                 android:textColor="#ffffff"
-                android:textSize="12sp"
-                android:background="@drawable/rounded_save_btn"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="8dp"
-                />
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -83,6 +89,7 @@
                 android:gravity="center"
                 android:textColor="#049DED"/>
         </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -16,6 +16,7 @@ import com.teamandroid.travelmaker.TravelMakerApplication
 import com.teamandroid.travelmaker.etc.DeleteDialogFragment
 import com.teamandroid.travelmaker.main.MainActivity
 import com.teamandroid.travelmaker.post.PostReceiveApplication
+import com.teamandroid.travelmaker.travelplanread.GetPlanActivity
 
 import kotlinx.android.synthetic.main.fragment_receive.view.*
 import kotlinx.android.synthetic.main.fragment_receive_item.*
@@ -74,7 +75,9 @@ class ReceiveFragment: Fragment(){
                                             intent.putExtra("board_idx", items[position].board_data.board_idx)
                                             startActivity(intent)
                                         } else if (items[position].board_data.board_status == 4) {
-
+                                            val intent = Intent(activity!!.applicationContext, GetPlanActivity::class.java)
+                                            intent.putExtra("board_idx", items[position].board_data.board_idx)
+                                            startActivity(intent)
                                         } else {
                                             val intent = Intent(activity!!.applicationContext, ApplyAccept::class.java)
                                             intent.putExtra("board_idx", items[position].board_data.board_idx)

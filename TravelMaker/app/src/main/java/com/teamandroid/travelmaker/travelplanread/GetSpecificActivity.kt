@@ -11,6 +11,7 @@ import com.bumptech.glide.RequestManager
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.TravelMakerApplication
 import com.teamandroid.travelmaker.travelplanwrite.dataSets.*
+import com.teamandroid.travelmaker.travelplanwrite.transdata.Place
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,8 +23,8 @@ class GetSpecificActivity : AppCompatActivity() {
     lateinit var specificItems : ArrayList<GetSpecificItem>
     lateinit var specificAdapter: GetSpecificAdapter
     lateinit var requestManager: RequestManager
-    lateinit var plan : ArrayList<GetPlan>
-
+    lateinit var place : ArrayList<GetPlace>
+    lateinit var trans : ArrayList<GetTrans>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_specific_get)
@@ -42,7 +43,7 @@ class GetSpecificActivity : AppCompatActivity() {
 //        var memo : Memo?,
 //        var cost : Cost?,
 //        var trans : Trans?
-
+        /*
         var testDataArrayList_1 : ArrayList<Data> = ArrayList()
         var testDataArrayList_2 : ArrayList<Data> = ArrayList()
 
@@ -75,27 +76,26 @@ class GetSpecificActivity : AppCompatActivity() {
 
         testDataArrayList_2.add(testData_3)
 
-        TotalData.totalData.put(2, testDataArrayList_2)
+        TotalData.totalData.put(2, testDataArrayList_2)*/
 
 
         if(this.intent.hasExtra("notFirstToSpecific")){
             curDay = intent.getIntExtra("notFirstToSpecific", 0)
+            place = intent.getParcelableArrayListExtra("place")
+            trans = intent.getParcelableArrayListExtra("trans")
+
 //            DataSet(tempArrayList[0], tempArrayList[1])
             day.text = curDay.toString()
             // title_list = dataSet.getTitleList()
             // 1일차, 2일차 안에 각각의 장소 넣을 때 hashmap으로 따로 전달하기
 
             specificItems = ArrayList()
-            //여기서 1일차 정보만 전달된다. 여기서 지도에서 지역을 받아 specificItems에 add해야한다
-            if(TotalData.totalData.get(curDay) != null){
-                for (s : Data in TotalData.totalData.get(curDay)!!) {
-                    specificItems.add(GetSpecificItem(s.title))
+
+                for (i in 0..(place.size - 1)) {
+                    specificItems.add(GetSpecificItem(place[i].place_name))
                 }
-            } else {
 
-            }
-
-            specificAdapter = GetSpecificAdapter(specificItems, day.text.toString(), this,requestManager)
+            specificAdapter = GetSpecificAdapter(specificItems, GetPlan(place, trans), day.text.toString(), this,requestManager)
             specific_rv.layoutManager = LinearLayoutManager(this)
             specific_rv.adapter = specificAdapter
         }
@@ -110,27 +110,9 @@ class GetSpecificActivity : AppCompatActivity() {
             }
         }
 
-        specificAdapter = GetSpecificAdapter(specificItems, day.text.toString(), this, requestManager)
+        specificAdapter = GetSpecificAdapter(specificItems, GetPlan(place, trans),day.text.toString(), this, requestManager)
         specific_rv.layoutManager = LinearLayoutManager(this)
         specific_rv.adapter = specificAdapter
     }
 
-    fun requestPlanData(){
-        val getPlan  = (applicationContext as TravelMakerApplication).getApplicationNetworkService().getPlan(
-                (applicationContext as TravelMakerApplication).userToken
-        )
-
-        getPlan.enqueue(object : Callback<GetPlanData>{
-            override fun onFailure(call: Call<GetPlanData>?, t: Throwable?) {
-
-            }
-
-            override fun onResponse(call: Call<GetPlanData>?, response: Response<GetPlanData>?) {
-                if(response!!.isSuccessful){
-                    response.body()!!.total_plan
-                }
-            }
-
-        })
-    }
 }

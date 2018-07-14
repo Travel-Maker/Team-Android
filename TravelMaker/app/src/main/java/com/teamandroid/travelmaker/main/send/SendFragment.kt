@@ -14,6 +14,7 @@ import com.teamandroid.travelmaker.etc.DeleteDialogFragment
 import com.teamandroid.travelmaker.main.MainActivity
 import com.teamandroid.travelmaker.post.PostSendApplication
 import com.teamandroid.travelmaker.review.ApplyReview
+import com.teamandroid.travelmaker.travelplanread.GetPlanActivity
 import com.teamandroid.travelmaker.write.ApplyWrite
 import kotlinx.android.synthetic.main.fragment_send.view.*
 import retrofit2.Call
@@ -54,6 +55,12 @@ class SendFragment : Fragment() {
                     mView.send_recycler.addOnItemTouchListener(RecyclerItemClickListener(activity!!.applicationContext, mView.send_recycler,
                             object : RecyclerItemClickListener.OnItemClickListener {
                                 override fun onItemClick(view: View, position: Int) {
+
+                                    if(items[position].board_data.board_status == 4){
+                                        val intent = Intent(activity!!.applicationContext, GetPlanActivity::class.java)
+                                        intent.putExtra("board_idx", items[position].board_data.board_idx)
+                                        startActivity(intent)
+                                    }
                                     val intent = Intent(activity!!.applicationContext, ApplyReview::class.java)
                                     intent.putExtra("board_idx", items[position].board_data.board_idx)
                                     startActivity(intent)

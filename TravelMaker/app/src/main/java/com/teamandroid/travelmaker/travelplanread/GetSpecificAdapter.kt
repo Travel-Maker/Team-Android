@@ -12,7 +12,7 @@ import com.bumptech.glide.RequestManager
 import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.travelplanwrite.dataSets.TotalData
 
-class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : String, c : Context, var requestManager: RequestManager) : RecyclerView.Adapter<GetSpecificViewHolder>() {
+class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, var plan : GetPlan,day : String, c : Context, var requestManager: RequestManager) : RecyclerView.Adapter<GetSpecificViewHolder>() {
     lateinit var place_item : View
     lateinit var cur_view : ViewGroup
     var context : Context = c
@@ -28,6 +28,7 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
     lateinit var memo_layout : LinearLayout
     lateinit var cost_layout : LinearLayout
     lateinit var trans_layout : LinearLayout
+
     private var memoAdapter: RecyclerView.Adapter<*>? = null
     private var costAdapter: RecyclerView.Adapter<*>? = null
     private var transportAdapter: RecyclerView.Adapter<*>? = null
@@ -41,6 +42,7 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
         val view : View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.get_specific_place_item, parent, false)
         cur_view = view as ViewGroup
+
         return GetSpecificViewHolder(view)
 
 //        memo_view = LayoutInflater.from(context).inflate(R.layout.specific_memo_item, parent, false)
@@ -76,8 +78,6 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
 //            (context as Activity).finish()
 //        }
 
-        if(TotalData.totalData.get(curDay) != null) {
-            if (TotalData.totalData.get(curDay)!!.get(position).memo != null) {
 
                 memo_layout = holder.itemView.findViewById(R.id.memo_item_layout) as LinearLayout
                 memo_view = LayoutInflater.from(context).inflate(R.layout.get_specific_memo_item, cur_view, false)
@@ -85,16 +85,15 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
                 var memo_explain: TextView = memo_view.findViewById(R.id.memo_explain) as TextView
                 var memo_img: ImageView = memo_view.findViewById(R.id.memo_img) as ImageView
 
-                var data: Uri = TotalData.totalData.get(curDay)!!.get(position).memo!!.memo_img!!
-                memo_explain.text = TotalData.totalData.get(curDay)!!.get(position).memo!!.memo_title
+                var data: Uri = Uri.parse(plan.place[position].place_img)
+                memo_explain.text = plan.place[position].place_comment
+
                 requestManager
                         .load(data)
                         .centerCrop()
                         .into(memo_img)
                 memo_layout.setVisibility(View.VISIBLE)
                 memo_layout.addView(memo_view)
-            }
-        }
 
 //        holder.itemView.cost.setOnClickListener {
 //            val intent : Intent = Intent((context as Activity), CostActivity::class.java)
@@ -106,8 +105,6 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
 //            (context as Activity).finish()
 //        }
 
-        if(TotalData.totalData.get(curDay) != null) {
-            if (TotalData.totalData.get(curDay)!!.get(position).cost != null) {
 
                 cost_layout = holder.itemView.findViewById(R.id.cost_item_layout) as LinearLayout
                 cost_view = LayoutInflater.from(context).inflate(R.layout.get_specific_cost_item, cur_view, false)
@@ -115,13 +112,12 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
                 var cost_comment: TextView = cost_view.findViewById(R.id.cost_comment) as TextView
                 var cost_budget: TextView = cost_view.findViewById(R.id.cost_budget) as TextView
 
-                cost_comment.text = TotalData.totalData.get(curDay)!!.get(position).cost!!.cost_comment
-                cost_budget.text = TotalData.totalData.get(curDay)!!.get(position).cost!!.cost_budget
+                cost_comment.text = plan.place[position].place_budget_comment
+                cost_budget.text = plan.place[position].place_budget.toString()
 
                 cost_layout.setVisibility(View.VISIBLE)
                 cost_layout.addView(cost_view)
-            }
-        }
+
 
 //        holder.itemView.transport.setOnClickListener {
 //            val intent : Intent = Intent((context as Activity), TransportActivity::class.java)
@@ -133,8 +129,6 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
 //            (context as Activity).finish()
 //        }
 
-        if(TotalData.totalData.get(curDay) != null) {
-            if (TotalData.totalData.get(curDay)!!.get(position).trans != null) {
 
                 trans_layout = holder.itemView.findViewById(R.id.transport_item_layout) as LinearLayout
                 trans_view = LayoutInflater.from(context).inflate(R.layout.get_specific_transport_item, cur_view, false)
@@ -145,16 +139,16 @@ class GetSpecificAdapter(var specificItems : ArrayList<GetSpecificItem>, day : S
                 var transport_explain: TextView = trans_view.findViewById(R.id.transport_explain) as TextView
                 var transport_total: TextView = trans_view.findViewById(R.id.transport_total) as TextView
 
-                transport_beginTime.text = TotalData.totalData.get(curDay)!!.get(position).trans!!.begin_time
-                transport_endTime.text = TotalData.totalData.get(curDay)!!.get(position).trans!!.end_time
-                transport_icon.setImageResource(imageList.get(TotalData.totalData.get(curDay)!!.get(position).trans!!.trans_img - 1))
-                transport_explain.text = TotalData.totalData.get(curDay)!!.get(position).trans!!.trans_memo
-                transport_total.text = TotalData.totalData.get(curDay)!!.get(position).trans!!.trans_cost
+                transport_beginTime.text = plan.trans[position].trans_dep_time
+                transport_endTime.text =  plan.trans[position].trans_arr_time
+
+
+                transport_icon.setImageResource(imageList.get(plan.trans[position].trans_name))
+                transport_explain.text = plan.trans[position].trans_content
+                transport_total.text = plan.trans[position].trans_budget.toString()
 
                 trans_layout.setVisibility(View.VISIBLE)
                 trans_layout.addView(trans_view)
 
-            }
-        }
     }
 }

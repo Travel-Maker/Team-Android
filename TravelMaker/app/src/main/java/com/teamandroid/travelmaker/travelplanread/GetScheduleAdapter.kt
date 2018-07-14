@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.teamandroid.travelmaker.R
 import kotlinx.android.synthetic.main.get_schdule_item.view.*
 
-class GetScheduleAdapter(var scheduleItems : ArrayList<GetScheduleItem>, context : Context) : RecyclerView.Adapter<GetScheduleViewHolder>() {
+class GetScheduleAdapter(var scheduleItems : ArrayList<GetScheduleItem>, var plan : ArrayList<GetPlan>, context : Context) : RecyclerView.Adapter<GetScheduleViewHolder>() {
 
     var context = context
     var curDay : Int = 0
@@ -50,6 +50,8 @@ class GetScheduleAdapter(var scheduleItems : ArrayList<GetScheduleItem>, context
 
                 val intent = Intent(context, GetSpecificActivity::class.java)
                 intent.putExtra("notFirstToSpecific", curDay)
+                intent.putParcelableArrayListExtra("place",plan[position].place)
+                intent.putParcelableArrayListExtra("trans",plan[position].trans)
                 context.startActivity(intent)
             }
         })

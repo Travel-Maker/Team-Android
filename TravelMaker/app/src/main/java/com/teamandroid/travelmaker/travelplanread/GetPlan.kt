@@ -1,6 +1,6 @@
 package com.teamandroid.travelmaker.travelplanread
 
-data class GetPlan (
+class GetPlan (
         var place : ArrayList<GetPlace>,
         var trans : ArrayList<GetTrans>
 )

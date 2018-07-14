@@ -1,9 +1,12 @@
 package com.teamandroid.travelmaker.travelplanwrite.Specific
 
 import android.content.Intent
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -38,6 +41,14 @@ class SpecificActivity : AppCompatActivity() {
         lateinit var hashTitle : HashMap<String, ArrayList<String>>
         hashTitle = HashMap()
         lateinit var tempArrayList : ArrayList<String>
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = resources.getColor(R.color.statusbarWhite, null)
+        }
 //        lateinit var dataSet : DataSet
         requestManager = Glide.with(this)
 

@@ -72,7 +72,6 @@ interface NetworkService {
     fun postPlan(@Header("token") token : String, @Part("board_idx") board_idx : RequestBody,
                  @Part("plan") plan : RequestBody, @Part place_img : ArrayList<MultipartBody.Part>?) : Call<TmPostResponse>
 
-
-    @GET("plan/view/")
-    fun getPlan(@Header("token") token : String) : Call<GetPlanData>
+    @GET("plan/view/{board_idx}")
+    fun getPlan(@Header("token") token : String, @Field ("board_idx") board_idx : Int) : Call<GetPlanData>
 }
