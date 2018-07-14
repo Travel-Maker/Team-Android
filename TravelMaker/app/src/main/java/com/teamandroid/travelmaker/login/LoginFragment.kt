@@ -15,6 +15,7 @@ import com.teamandroid.travelmaker.R
 import com.teamandroid.travelmaker.TravelMakerApplication
 import com.teamandroid.travelmaker.UserInfo
 import com.teamandroid.travelmaker.get.GetNaverLoginResponse
+import com.teamandroid.travelmaker.help.HelpActivity
 import com.teamandroid.travelmaker.main.MainActivity
 import com.teamandroid.travelmaker.post.PostSignIn
 import com.teamandroid.travelmaker.post.PostSignup
@@ -63,7 +64,10 @@ class LoginFragment :Fragment() {
         }
 
         view.btn_naverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
-
+        view.guide.setOnClickListener{
+            val intent = Intent(activity!!.applicationContext, HelpActivity::class.java)
+            startActivity(intent)
+        }
         return view
     }
 

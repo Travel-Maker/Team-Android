@@ -20,13 +20,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="94dp"
         android:src="@drawable/travel_maker_login"
         android:layout_below="@id/applogo"/>
+
+    <TextView
+        android:id="@+id/guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/apptitle"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#6DBEBF"
+        android:textSize="15sp"
+        android:text="사용 설명서"/>
 
     <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
         android:id="@+id/btn_naverLogin"
         android:layout_width="wrap_content"
+        android:layout_marginTop="94dp"
         android:layout_height="50dp"
         android:layout_below="@id/apptitle" />
 

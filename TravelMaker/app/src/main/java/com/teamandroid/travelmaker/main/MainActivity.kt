@@ -17,6 +17,7 @@ import com.teamandroid.travelmaker.main.receive.ReceiveFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.WindowManager
 import com.teamandroid.travelmaker.detail.DetailActivity
+import com.teamandroid.travelmaker.main.mypage.MyPageFragment
 import com.teamandroid.travelmaker.main.receive.ReceiveBoard
 import com.teamandroid.travelmaker.main.send.SendFragment
 
@@ -88,6 +89,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             myNavigation = navigationBar_send
         }
 
+        else if(fragment is MyPageFragment){
+            myNavigation = navigationBar_mypage
+        }
+
         val transaction = manager.beginTransaction()
         transaction.addToBackStack(null)
         transaction.replace(R.id.main_container, fragment).commit()
@@ -132,6 +137,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         else if(v == navigationBar_send){
             if(currentSelected != v) {
                 val fragment = SendFragment()
+                changeFragment(fragment)
+            }
+        }
+        else if(v == navigationBar_mypage){
+            if(currentSelected != v) {
+                val fragment = MyPageFragment()
                 changeFragment(fragment)
             }
         }

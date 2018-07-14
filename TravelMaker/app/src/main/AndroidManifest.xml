@@ -60,6 +60,7 @@
         <activity android:name=".travelplanread.GetPlanActivity"/>
         <activity android:name=".travelplanread.GetSpecificActivity"/>
         <activity android:name=".travelplanread.GetReviewActivity"/>
+        <activity android:name=".help.HelpActivity"/>
     </application>
 
 </manifest>
